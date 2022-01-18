@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const UserContext = React.createContext({
-  user: null,
+export const UserContext = React.createContext({
+  userToken: null,
   login: () => {},
   logout: () => {},
 });
 
 const UserContextProvider = (props) => {
-  const [user, setUser] = useState(null);
+  const [userToken, setUserToken] = useState(null);
 
-  const loginUser = () => {};
+  const loginUser = (user) => {
+    localStorage.setItem("userToken", user.token);
+    setUserToken(user);
+  };
 
-  const logOutUser = () => {};
+  const logOutUser = () => {
+    setUserToken(null);
+    localStorage.removeItem("userToken");
+  };
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    setUserToken(userToken);
+  }, []);
 
   return (
     <UserContext.Provider
       value={{
-        user,
+        userToken,
         login: loginUser,
         logOut: logOutUser,
       }}
