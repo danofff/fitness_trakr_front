@@ -7,24 +7,24 @@ import Routine from "../components/Routine";
 import classes from "./Routines.module.css";
 
 const Routines = (props) => {
-  const dataCtx = useContext(DataContext);
+  const { setRoutinesHandler, routines } = useContext(DataContext);
   useEffect(() => {
     async function fetchRoutines() {
       try {
         const routines = await fetchPublicRoutines();
-        dataCtx.setRoutinesHandler(routines);
+        setRoutinesHandler(routines);
       } catch (error) {
         console.log(error);
         //handle snackbar
       }
     }
     fetchRoutines();
-  }, []);
+  }, [setRoutinesHandler]);
   return (
     <section className={classes.routinespage}>
       <h1>Routines</h1>
       <ul>
-        {dataCtx.routines.map((routine) => {
+        {routines.map((routine) => {
           return <Routine key={routine.id} routine={routine} />;
         })}
       </ul>

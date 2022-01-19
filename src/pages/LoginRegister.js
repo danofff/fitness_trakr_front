@@ -1,8 +1,11 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../store/userContext";
 import { loginUser, registerUser } from "../utils/apiCalls";
 
+import FormControl from "../components/ui/FormControl";
+
 import classes from "./LoginRegister.module.css";
+import StyledCheckbox from "../components/ui/StyledCheckbox";
 
 const LoginRegister = (props) => {
   const userCtx = useContext(UserContext);
@@ -37,7 +40,13 @@ const LoginRegister = (props) => {
           password: passwordInput,
         });
         userCtx.login(userToken);
-      } catch (error) {}
+      } catch (error) {
+        //handle unsuccessfull request
+        //...
+        console.log(error.message);
+        setUserNameInput("");
+        setPasswordInput("");
+      }
     } else {
       //call register api
       try {
@@ -47,35 +56,34 @@ const LoginRegister = (props) => {
         });
       } catch (error) {
         //handle unsuccessfull request
-        // ....
+        // ...
       }
     }
   };
 
   return (
-    <form className={classes.form} onSubmit={onFormSubmit}>
-      <div className={classes.form_control}>
-        <label htmlFor="username">Username:</label>
-        <input
+    <React.Fragment>
+      <h1>{mode === "Login" ? "Login" : "Sign up"}</h1>
+      <form className={classes.form} onSubmit={onFormSubmit}>
+        <FormControl
           type="text"
-          name="username"
           value={userNameInput}
-          onChange={onUserNameInputChange}
+          onInputChange={onUserNameInputChange}
+          label="Username"
         />
-      </div>
-      <div className={classes.form_control}>
-        <label htmlFor="password">Password:</label>
-        <input
+        <FormControl
           type="password"
-          name="passwrod"
           value={passwordInput}
-          onChange={onPasswordInputChange}
+          onInputChange={onPasswordInputChange}
+          label="Password"
         />
-      </div>
-      <input type="checkbox" onChange={onSwitchChange} />
-      <label>Switch to {mode === "Login" ? "Sign Up" : "Login"}</label>
-      <button type="submit">{mode}</button>
-    </form>
+        <StyledCheckbox
+          onChangeHandler={onSwitchChange}
+          label={`Switch to ${mode === "Login" ? "Sign Up" : "Login"}`}
+        />
+        <button type="submit">{mode}</button>
+      </form>
+    </React.Fragment>
   );
 };
 

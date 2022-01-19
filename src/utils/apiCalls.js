@@ -1,5 +1,6 @@
 import makeHeaders from "./makeHeaders";
 
+// const apiBase = "https://glacial-hamlet-08464.herokuapp.com/api";
 const apiBase = "http://localhost:8000/api";
 //register user api call
 export const registerUser = async (userData) => {
@@ -68,34 +69,36 @@ export const fetchActivities = async () => {
   }
 };
 
-//fetch routines by username
-export const fetchRoutinesByUsername = async (username, token) => {
-  if (token) {
-    const responseMe = await fetch(`${apiBase}/users/me`, {
+//fetch myroutines api call
+export const fetchMyRoutines = async (token) => {
+  const responseMe = await fetch(`${apiBase}/users/me`, {
+    headers: makeHeaders(token),
+  });
+  if (responseMe.ok) {
+    const data = await responseMe.json();
+    const userName = data.username;
+    const response = await fetch(`${apiBase}/users/${userName}/routines`, {
       headers: makeHeaders(token),
     });
-    if (responseMe.ok) {
-      const userName = await responseMe.json().username;
-      const response = await fetch(`${apiBase}/users/:${userName}/routines`, {
-        headers: makeHeaders(token),
-      });
-      if (response.ok) {
-        return await response.json();
-      } else {
-        const error = await response.json();
-        throw new Error(error.error);
-      }
-    } else {
-      const error = await responseMe.json();
-      throw new Error(error.error);
-    }
-  } else {
-    const response = await fetch(`${apiBase}/users/:${username}/routines`);
     if (response.ok) {
       return await response.json();
     } else {
       const error = await response.json();
       throw new Error(error.error);
     }
+  } else {
+    const error = await responseMe.json();
+    throw new Error(error.error);
+  }
+};
+
+//fetch routines by username
+export const fetchRoutinesByUsername = async (username) => {
+  const response = await fetch(`${apiBase}/users/:${username}/routines`);
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
   }
 };

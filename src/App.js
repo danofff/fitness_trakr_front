@@ -7,6 +7,7 @@ import Container from "./components/ui/Container";
 import Header from "./components/Header";
 
 import "./App.css";
+import MyRoutines from "./pages/MyRoutines";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/routines" element={<Routines />} />
+          <Route path="/myroutines" element={<MyRoutines />} />
           <Route path="/users/:username/routines" element={<Routines />} />
           <Route path="/activities" element={<Activities />} />
           <Route path="/auth" element={<LoginRegister />} />

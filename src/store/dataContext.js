@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 export const DataContext = React.createContext({
   routines: [],
@@ -11,13 +11,13 @@ const DataContextProvider = (props) => {
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  const setRoutinesHandler = (routines) => {
+  const setRoutinesHandler = useCallback((routines) => {
     setRoutines(routines);
-  };
+  }, []);
 
-  const setActivitiesHandler = (activities) => {
+  const setActivitiesHandler = useCallback((activities) => {
     setActivities(activities);
-  };
+  }, []);
 
   return (
     <DataContext.Provider
