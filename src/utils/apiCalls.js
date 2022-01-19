@@ -1,7 +1,13 @@
 import makeHeaders from "./makeHeaders";
 
-// const apiBase = "https://glacial-hamlet-08464.herokuapp.com/api";
-const apiBase = "http://localhost:8000/api";
+//emily
+//const apiBase = "https://serene-springs-07906.herokuapp.com/"
+
+//danylo
+const apiBase = "https://glacial-hamlet-08464.herokuapp.com/api";
+
+// const apiBase = "http://localhost:8000/api";
+
 //register user api call
 export const registerUser = async (userData) => {
   try {
@@ -101,4 +107,49 @@ export const fetchRoutinesByUsername = async (username) => {
     const error = await response.json();
     throw new Error(error.error);
   }
+};
+
+//create new routine
+export const createRoutine = async (token, isPublic, name, goal) => {
+  const response = await fetch(`${apiBase}/routines`, {
+    method: "POST",
+    headers: makeHeaders(token),
+    body: JSON.stringify({
+      name,
+      goal,
+      isPublic,
+    }),
+  });
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
+  }
+};
+
+//create new activity
+export const createActivity = async (token, name, description) => {
+  const response = await fetch(`${apiBase}/activities`, {
+    method: "POST",
+    headers: makeHeaders(token),
+    body: JSON.stringify({
+      name,
+      description,
+    }),
+  });
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
+  }
+};
+
+//delete routine
+export const deleteRoutine = async (token, routineId) => {
+  await fetch(`${apiBase}/routines/${routineId}`, {
+    method: "DELETE",
+    headers: makeHeaders(token),
+  });
 };

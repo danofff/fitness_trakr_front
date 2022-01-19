@@ -7,7 +7,7 @@ import { UserContext } from "../store/userContext";
 import classes from "./Header.module.css";
 
 const Header = () => {
-  const { userToken, logOut } = useContext(UserContext);
+  const { user, logOut } = useContext(UserContext);
   const logOutHandler = () => {
     logOut();
   };
@@ -17,10 +17,10 @@ const Header = () => {
         <nav className={classes.navigation}>
           <NavLink to="/routines">Routines</NavLink>
           <NavLink to="/activities">Activities</NavLink>
-          {userToken && <NavLink to="/myroutines">My Routines</NavLink>}
-          {!userToken && <NavLink to="/auth">Login/Register</NavLink>}
+          {user && <NavLink to="/myroutines">My Routines</NavLink>}
+          {!user && <NavLink to="/auth">Login/Register</NavLink>}
           {/* CREATE HOME BUTTON */}
-          {userToken && <button onClick={logOutHandler}>Logout</button>}
+          {user && <button onClick={logOutHandler}>Logout</button>}
         </nav>
       </Container>
     </header>

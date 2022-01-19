@@ -13,14 +13,14 @@ import "./App.css";
 import MyRoutines from "./pages/MyRoutines";
 
 function App() {
-  const { userToken } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <div className="App">
       <Header />
       <Container>
         <Routes>
           <Route path="/routines" element={<Routines />} />
-          {userToken && <Route path="/myroutines" element={<MyRoutines />} />}
+          {user && <Route path="/myroutines" element={<MyRoutines />} />}
           <Route path="/users/:username/routines" element={<Routines />} />
           <Route path="/activities" element={<Activities />} />
           <Route path="/auth" element={<LoginRegister />} />

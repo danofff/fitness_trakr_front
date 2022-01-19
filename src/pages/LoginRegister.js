@@ -35,11 +35,11 @@ const LoginRegister = (props) => {
     if (mode === "Login") {
       //call login api
       try {
-        const userToken = await loginUser({
+        const user = await loginUser({
           username: userNameInput,
           password: passwordInput,
         });
-        userCtx.login(userToken);
+        userCtx.login(user);
       } catch (error) {
         //handle unsuccessfull request
         //...

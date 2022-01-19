@@ -5,6 +5,7 @@ export const DataContext = React.createContext({
   activities: [],
   setRoutines: (routines) => {},
   setActivities: (activities) => {},
+  addRoutine: (routine) => {},
 });
 
 const DataContextProvider = (props) => {
@@ -19,6 +20,12 @@ const DataContextProvider = (props) => {
     setActivities(activities);
   }, []);
 
+  const addRoutineHandler = (routine) => {
+    setRoutines((prevState) => {
+      return [...prevState, routine];
+    });
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -26,6 +33,7 @@ const DataContextProvider = (props) => {
         activities,
         setRoutinesHandler,
         setActivitiesHandler,
+        addRoutineHandler,
       }}
     >
       {props.children}

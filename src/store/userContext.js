@@ -7,27 +7,35 @@ export const UserContext = React.createContext({
 });
 
 const UserContextProvider = (props) => {
-  const [userToken, setUserToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   const loginUser = (user) => {
-    localStorage.setItem("userToken", user.token);
-    setUserToken(user.token);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        token: user.token,
+        username: user.username,
+        userId: user.userId,
+      })
+    );
+    setUser(user);
   };
 
   const logOutUser = () => {
-    setUserToken(null);
+    setUser(null);
     localStorage.removeItem("userToken");
   };
 
   useEffect(() => {
-    const userToken = localStorage.getItem("userToken");
-    setUserToken(userToken);
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    setUser(user);
   }, []);
 
   return (
     <UserContext.Provider
       value={{
-        userToken,
+        user,
         login: loginUser,
         logOut: logOutUser,
       }}
