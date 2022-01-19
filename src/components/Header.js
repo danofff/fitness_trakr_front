@@ -7,19 +7,20 @@ import { UserContext } from "../store/userContext";
 import classes from "./Header.module.css";
 
 const Header = () => {
-  const userCtx = useContext(UserContext);
+  const { userToken, logOut } = useContext(UserContext);
   const logOutHandler = () => {
-    userCtx.logOut();
+    logOut();
   };
   return (
     <header>
       <Container>
-        <nav>
+        <nav className={classes.navigation}>
           <NavLink to="/routines">Routines</NavLink>
           <NavLink to="/activities">Activities</NavLink>
-          {!userCtx.userToken && <NavLink to="/auth">Login/Register</NavLink>}
+          {userToken && <NavLink to="/myroutines">My Routines</NavLink>}
+          {!userToken && <NavLink to="/auth">Login/Register</NavLink>}
           {/* CREATE HOME BUTTON */}
-          {userCtx.userToken && <button onClick={logOutHandler}>Logout</button>}
+          {userToken && <button onClick={logOutHandler}>Logout</button>}
         </nav>
       </Container>
     </header>

@@ -11,7 +11,7 @@ const UserContextProvider = (props) => {
 
   const loginUser = (user) => {
     localStorage.setItem("userToken", user.token);
-    setUserToken(user);
+    setUserToken(user.token);
   };
 
   const logOutUser = () => {
