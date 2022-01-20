@@ -51,7 +51,9 @@ const Activities = (props) => {
 
       {isFormOpen ? (
         <form className={classes.form} onSubmit={onFormSubmit}>
-          <button onClick={openFormToggle}>X</button>
+          <button onClick={openFormToggle} type="button">
+            X
+          </button>
           <h3>Create A New Activity</h3>
           <FormControl
             type="text"

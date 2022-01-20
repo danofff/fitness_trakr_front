@@ -2,16 +2,20 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import FormControl from "./ui/FormControl";
-
-import classes from "./EditRoutineForm.module.css";
+import StyledCheckbox from "./ui/StyledCheckbox";
+import { deleteRoutineActivityAct, editRoutineAct } from "../store/dataActions";
 import RoutineActivity from "./RoutineActivity";
 
+import classes from "./EditRoutineForm.module.css";
+
 const EditRoutineForm = ({ routine, onClose }) => {
-  const activities = useSelector((state) => state.data.activities);
+  const user = useSelector((state) => state.user.user);
+
   const dispatch = useDispatch();
 
   const [nameInput, setNameInput] = useState(routine.name);
   const [goalInput, setGoalInput] = useState(routine.goal);
+  const [isPublic, setIsPublic] = useState(routine.isPublic);
 
   const onNameChange = (event) => {
     setNameInput(event.target.value);
@@ -21,8 +25,17 @@ const EditRoutineForm = ({ routine, onClose }) => {
     setGoalInput(event.target.value);
   };
 
-  const onRoutineActivityDelete = (event) => {
-    console.log("delete is working");
+  const onRoutineActivityDelete = (event, activityId) => {
+    console.log("delete is working", activityId);
+    dispatch(deleteRoutineActivityAct(user.token, activityId, routine.id));
+  };
+
+  const onEditSubmit = (event) => {
+    event.preventDefault();
+    console.log("edit is working");
+    dispatch(
+      editRoutineAct(user.token, routine.id, nameInput, goalInput, isPublic)
+    );
   };
 
   return (
@@ -41,20 +54,13 @@ const EditRoutineForm = ({ routine, onClose }) => {
           onInputChange={onDescriptionChange}
           label="goal"
         />
-        <select>
-          {activities.map((activity) => {
-            return (
-              <option value={activity.id} key={activity.id}>
-                {activity.name}
-              </option>
-            );
-          })}
-        </select>
-        <label htmlFor="count">Count</label>
-        <input type="number" name="count"></input>
-        <label htmlFor="duration">Duration</label>
-        <input type="number" name="duration"></input>
-        <button type="button">Add activity</button>
+        <StyledCheckbox
+          checked={isPublic}
+          onChangeHandler={() => {
+            setIsPublic(!isPublic);
+          }}
+          label={isPublic ? "Make it Private" : "Make it Public"}
+        />
         <ul>
           {routine.activities.map((activity) => {
             return (
@@ -67,6 +73,7 @@ const EditRoutineForm = ({ routine, onClose }) => {
             );
           })}
         </ul>
+        <button onClick={onEditSubmit}>Done</button>
       </form>
     </div>
   );

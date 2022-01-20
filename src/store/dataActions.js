@@ -5,7 +5,12 @@ import {
   deleteRoutine,
   fetchActivities,
   createActivity,
+  createRoutineActivity,
   editActivity,
+  deleteRoutineActivity,
+  editRoutine,
+  fetchRoutinesByUsername,
+  fetchRoutinesByActivity,
 } from "../utils/apiCalls";
 import { dataActions } from "./dataSlice";
 
@@ -21,12 +26,39 @@ export const getPublicRoutinesAct = () => {
     }
   };
 };
+
 export const getMyRoutinesAct = (token) => {
   console.log("get my routines action is working");
   return async (dispatch) => {
     try {
       const routines = await fetchMyRoutines(token);
       dispatch(dataActions.getMyRoutines(routines));
+    } catch (error) {
+      //handle snackbar
+      console.log(error);
+    }
+  };
+};
+
+export const getUserRoutinesAct = (username) => {
+  console.log("get user routines action is working");
+  return async (dispatch) => {
+    try {
+      const userRoutines = await fetchRoutinesByUsername(username);
+      dispatch(dataActions.getUserRoutines(userRoutines));
+    } catch (error) {
+      //handle snackbar
+      console.log(error);
+    }
+  };
+};
+
+export const getActivityRoutineAct = (activityId) => {
+  console.log("get routines by activity is working");
+  return async (dispatch) => {
+    try {
+      const activityRoutines = await fetchRoutinesByActivity(activityId);
+      dispatch(dataActions.getActivityRoutines(activityRoutines));
     } catch (error) {
       //handle snackbar
       console.log(error);
@@ -45,6 +77,25 @@ export const createRoutineAct = (token, creatorName, isPublic, name, goal) => {
     } catch (error) {
       //handle snackbar
       console.log(error);
+    }
+  };
+};
+
+export const editRoutineAct = (token, routineId, name, goal, isPublic) => {
+  console.log("edit routine action is working");
+  return async (dispatch) => {
+    try {
+      const editedRoutine = await editRoutine(
+        token,
+        routineId,
+        name,
+        goal,
+        isPublic
+      );
+      dispatch(dataActions.editRoutine(editedRoutine));
+    } catch (error) {
+      console.log(error);
+      //handle snackbar
     }
   };
 };
@@ -88,7 +139,43 @@ export const createActivityAct = (token, name, description) => {
   };
 };
 
+export const addRoutineActivityAct = (
+  token,
+  routineId,
+  activityId,
+  count,
+  duration
+) => {
+  console.log("add routine activity action is working");
+  return async (dispatch) => {
+    try {
+      const routineActivity = await createRoutineActivity(
+        token,
+        routineId,
+        activityId,
+        count,
+        duration
+      );
+
+      dispatch(dataActions.addRoutineActivity({ routineActivity }));
+    } catch (error) {}
+  };
+};
+
 export const editActivityAct = (token, name, description) => {
   console.log("edit activity action is working");
   return async (dispatch) => {};
+};
+
+export const deleteRoutineActivityAct = (token, id, routineId) => {
+  console.log("delete activity action is working");
+  return async (dispatch) => {
+    try {
+      await deleteRoutineActivity(token, id);
+      dispatch(dataActions.deleteRoutineActivity({ id, routineId }));
+    } catch (error) {
+      //handler errors
+      // console.log(error);
+    }
+  };
 };

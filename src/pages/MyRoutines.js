@@ -8,9 +8,9 @@ import {
   getActivitiesAct,
   getMyRoutinesAct,
 } from "../store/dataActions";
-
-import classes from "./MyRoutines.module.css";
 import StyledCheckbox from "../components/ui/StyledCheckbox";
+
+import classes from "./Routines.module.css";
 
 const MyRoutines = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -72,37 +72,37 @@ const MyRoutines = (props) => {
       )
     );
   };
-
+  // console.log(myRoutines);
   return (
     <section className={classes.container}>
       <h1>My Routines</h1>
 
-      <form
-        className={`${isFormOpen ? classes.isOpen : classes.form}`}
-        onSubmit={onFormSubmit}
-      >
-        <button onClick={openFormToggle} type="button">
-          X
-        </button>
-        <h3>Create A New Routine</h3>
-        <FormControl
-          type="text"
-          value={nameInput}
-          onInputChange={onNameInputChange}
-          label="name"
-        />
-        <FormControl
-          type="text"
-          value={goalInput}
-          onInputChange={onGoalInputChange}
-          label="goal"
-        />
-        <StyledCheckbox
-          onChangeHandler={onSwitchChange}
-          label={isPublic ? "Make it Private" : "Make it Public"}
-        />
-        <button type="submit">Create</button>
-      </form>
+      {isFormOpen && (
+        <form className={classes.form} onSubmit={onFormSubmit}>
+          <button onClick={openFormToggle} type="button">
+            X
+          </button>
+          <h3>Create A New Routine</h3>
+          <FormControl
+            type="text"
+            value={nameInput}
+            onInputChange={onNameInputChange}
+            label="name"
+          />
+          <FormControl
+            type="text"
+            value={goalInput}
+            onInputChange={onGoalInputChange}
+            label="goal"
+          />
+          <StyledCheckbox
+            onChangeHandler={onSwitchChange}
+            label={isPublic ? "Make it Private" : "Make it Public"}
+            checked={isPublic}
+          />
+          <button type="submit">Create</button>
+        </form>
+      )}
       {!isFormOpen && (
         <button onClick={openFormToggle}>Create new routine</button>
       )}

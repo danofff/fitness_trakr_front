@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { loginUserAct, registerUserAct } from "../store/userActions";
@@ -6,7 +7,6 @@ import FormControl from "../components/ui/FormControl";
 import StyledCheckbox from "../components/ui/StyledCheckbox";
 
 import classes from "./LoginRegister.module.css";
-import { registerUser } from "../utils/apiCalls";
 
 const LoginRegister = (props) => {
   const dispatch = useDispatch();
@@ -14,6 +14,8 @@ const LoginRegister = (props) => {
   const [passwordInput, setPasswordInput] = useState("");
 
   const [mode, setMode] = useState("Login");
+
+  const navigate = useNavigate();
 
   const onUserNameInputChange = (event) => {
     setUserNameInput(event.target.value);
@@ -40,6 +42,9 @@ const LoginRegister = (props) => {
           loginUserAct(userNameInput, passwordInput)
         );
         console.log("success");
+        if (isSuccess) {
+          navigate("/myroutines");
+        }
       } catch (error) {
         //handle unsuccessfull request
         //...

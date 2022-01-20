@@ -13,6 +13,8 @@ import NotFound from "./pages/NotFound";
 import "./App.css";
 import { userActions } from "./store/userSlice";
 import Modal from "./components/ui/Modal";
+import RoutinesByUser from "./pages/RoutinesByUser";
+import RoutinesByActivity from "./pages/RoutinesByActivity";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,13 +26,20 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <Modal />
+      {/* <Modal /> */}
       <Header />
       <Container>
         <Routes>
           <Route path="/routines" element={<Routines />} />
           {user && <Route path="/myroutines" element={<MyRoutines />} />}
-          <Route path="/users/:username/routines" element={<Routines />} />
+          <Route
+            path="/users/:username/routines"
+            element={<RoutinesByUser />}
+          />
+          <Route
+            path="/activities/:activityId/routines"
+            element={<RoutinesByActivity />}
+          />
           <Route path="/activities" element={<Activities />} />
           <Route path="/auth" element={<LoginRegister />} />
           <Route path="/*" element={<NotFound />}></Route>
