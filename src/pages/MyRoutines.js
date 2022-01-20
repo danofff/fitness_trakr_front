@@ -1,46 +1,45 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import FormControl from "../components/ui/FormControl";
-
-import { fetchMyRoutines, createRoutine } from "../utils/apiCalls";
-import { DataContext } from "../store/dataContext";
-import { UserContext } from "../store/userContext";
 import Routine from "../components/Routine";
+import {
+  createRoutineAct,
+  getActivitiesAct,
+  getMyRoutinesAct,
+} from "../store/dataActions";
 
-import classes from "./Routines.module.css";
+import classes from "./MyRoutines.module.css";
 import StyledCheckbox from "../components/ui/StyledCheckbox";
 
 const MyRoutines = (props) => {
-  const { setRoutinesHandler, routines, addRoutine } = useContext(DataContext);
-  const { user } = useContext(UserContext);
+  const user = useSelector((state) => state.user.user);
+  const myRoutines = useSelector((state) => state.data.myRoutines);
+
+  const dispatch = useDispatch();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [goalInput, setGoalInput] = useState("");
   const [isPublic, setIsPublic] = useState(false);
+  const [shouldFetchRoutines, setShouldFetchRoutines] = useState(true);
 
+  //fetch all my routines
   useEffect(() => {
-    async function fetchRoutines() {
-      try {
-        const routines = await fetchMyRoutines(user.token);
-        setRoutinesHandler(routines);
-      } catch (error) {
-        console.log(error);
-        //handle snackbar
-      }
+    if (user && shouldFetchRoutines) {
+      dispatch(getMyRoutinesAct(user.token));
+      setShouldFetchRoutines(false);
     }
-    if (user) {
-      fetchRoutines();
-    }
-  }, [user]);
+    dispatch(getActivitiesAct());
+  }, [user, shouldFetchRoutines, dispatch]);
 
+  //open add routine form handler
   const openFormToggle = (event) => {
     if (isFormOpen === true) {
       setIsFormOpen(false);
       setNameInput("");
       setGoalInput("");
     }
-
     if (isFormOpen === false) {
       setIsFormOpen(true);
     }
@@ -58,59 +57,57 @@ const MyRoutines = (props) => {
     isPublic ? setIsPublic(false) : setIsPublic(true);
   };
 
-  const onFormSubmit = async (event) => {
+  //add new routine form handler
+  const onFormSubmit = (event) => {
     event.preventDefault();
-
-    try {
-      const newRoutine = await createRoutine(
+    //UI if success clean inputs and close form,
+    //if not leave form open clean form or not?
+    dispatch(
+      createRoutineAct(
         user.token,
+        user.username,
         isPublic,
         nameInput,
         goalInput
-      );
-      addRoutine(newRoutine);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setNameInput("");
-      setGoalInput("");
-      setIsPublic(false);
-      setIsFormOpen(false);
-    }
+      )
+    );
   };
 
   return (
-    <section className={classes.routinespage}>
+    <section className={classes.container}>
       <h1>My Routines</h1>
 
-      {isFormOpen ? (
-        <form className={classes.form} onSubmit={onFormSubmit}>
-          <button onClick={openFormToggle}>X</button>
-          <h3>Create A New Routine</h3>
-          <FormControl
-            type="text"
-            value={nameInput}
-            onInputChange={onNameInputChange}
-            label="name"
-          />
-          <FormControl
-            type="text"
-            value={goalInput}
-            onInputChange={onGoalInputChange}
-            label="goal"
-          />
-          <StyledCheckbox
-            onChangeHandler={onSwitchChange}
-            label={isPublic ? "Private" : "Public"}
-          />
-          <button type="submit">Create</button>
-        </form>
-      ) : (
+      <form
+        className={`${isFormOpen ? classes.isOpen : classes.form}`}
+        onSubmit={onFormSubmit}
+      >
+        <button onClick={openFormToggle} type="button">
+          X
+        </button>
+        <h3>Create A New Routine</h3>
+        <FormControl
+          type="text"
+          value={nameInput}
+          onInputChange={onNameInputChange}
+          label="name"
+        />
+        <FormControl
+          type="text"
+          value={goalInput}
+          onInputChange={onGoalInputChange}
+          label="goal"
+        />
+        <StyledCheckbox
+          onChangeHandler={onSwitchChange}
+          label={isPublic ? "Make it Private" : "Make it Public"}
+        />
+        <button type="submit">Create</button>
+      </form>
+      {!isFormOpen && (
         <button onClick={openFormToggle}>Create new routine</button>
       )}
-
       <ul>
-        {routines.map((routine) => {
+        {myRoutines.map((routine) => {
           return <Routine key={routine.id} routine={routine} />;
         })}
       </ul>

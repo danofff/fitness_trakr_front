@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { UserContext } from "./store/userContext";
 import LoginRegister from "./pages/LoginRegister";
+import MyRoutines from "./pages/MyRoutines";
 import Routines from "./pages/Routines";
 import Activities from "./pages/Activities";
 import Container from "./components/ui/Container";
@@ -10,12 +11,20 @@ import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 
 import "./App.css";
-import MyRoutines from "./pages/MyRoutines";
+import { userActions } from "./store/userSlice";
+import Modal from "./components/ui/Modal";
 
 function App() {
-  const { user } = useContext(UserContext);
+  const dispatch = useDispatch();
+
+  //dispatch user from localStorage
+  const user = useSelector((state) => state.user.user);
+  useEffect(() => {
+    dispatch(userActions.fetchUserFromLocal());
+  }, [dispatch]);
   return (
     <div className="App">
+      <Modal />
       <Header />
       <Container>
         <Routes>

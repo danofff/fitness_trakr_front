@@ -1,14 +1,15 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../store/userContext";
-import { loginUser, registerUser } from "../utils/apiCalls";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
+import { loginUserAct, registerUserAct } from "../store/userActions";
 import FormControl from "../components/ui/FormControl";
-
-import classes from "./LoginRegister.module.css";
 import StyledCheckbox from "../components/ui/StyledCheckbox";
 
+import classes from "./LoginRegister.module.css";
+import { registerUser } from "../utils/apiCalls";
+
 const LoginRegister = (props) => {
-  const userCtx = useContext(UserContext);
+  const dispatch = useDispatch();
   const [userNameInput, setUserNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
@@ -35,11 +36,10 @@ const LoginRegister = (props) => {
     if (mode === "Login") {
       //call login api
       try {
-        const user = await loginUser({
-          username: userNameInput,
-          password: passwordInput,
-        });
-        userCtx.login(user);
+        const isSuccess = await dispatch(
+          loginUserAct(userNameInput, passwordInput)
+        );
+        console.log("success");
       } catch (error) {
         //handle unsuccessfull request
         //...
@@ -50,13 +50,16 @@ const LoginRegister = (props) => {
     } else {
       //call register api
       try {
-        await registerUser({
-          username: userNameInput,
-          password: passwordInput,
-        });
+        const isSuccess = await dispatch(
+          registerUserAct(userNameInput, passwordInput)
+        );
+        console.log("success");
       } catch (error) {
         //handle unsuccessfull request
-        // ...
+        //...
+        console.log(error.message);
+        setUserNameInput("");
+        setPasswordInput("");
       }
     }
   };

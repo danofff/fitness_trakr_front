@@ -128,6 +128,14 @@ export const createRoutine = async (token, isPublic, name, goal) => {
   }
 };
 
+//delete routine
+export const deleteRoutine = async (token, routineId) => {
+  await fetch(`${apiBase}/routines/${routineId}`, {
+    method: "DELETE",
+    headers: makeHeaders(token),
+  });
+};
+
 //create new activity
 export const createActivity = async (token, name, description) => {
   const response = await fetch(`${apiBase}/activities`, {
@@ -146,10 +154,20 @@ export const createActivity = async (token, name, description) => {
   }
 };
 
-//delete routine
-export const deleteRoutine = async (token, routineId) => {
-  await fetch(`${apiBase}/routines/${routineId}`, {
-    method: "DELETE",
+//edit activity
+export const editActivity = async (token, id, name, description) => {
+  const response = await fetch(`${apiBase}/activities/${id}`, {
+    method: "PATCH",
     headers: makeHeaders(token),
+    body: JSON.stringify({
+      name,
+      description,
+    }),
   });
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
+  }
 };

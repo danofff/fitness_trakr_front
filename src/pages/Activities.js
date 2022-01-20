@@ -1,33 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import FormControl from "../components/ui/FormControl";
-
-import { fetchActivities, createActivity } from "../utils/apiCalls";
-import { DataContext } from "../store/dataContext";
-import { UserContext } from "../store/userContext";
 import Activity from "../components/Activity";
+import { createActivityAct, getActivitiesAct } from "../store/dataActions";
 
 import classes from "./Activities.module.css";
 
 const Activities = (props) => {
-  const { setActivitiesHandler, activities } = useContext(DataContext);
-  const { user } = useContext(UserContext);
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const activities = useSelector((state) => state.data.activities);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
 
   useEffect(() => {
-    async function getActivities() {
-      try {
-        const activities = await fetchActivities();
-        setActivitiesHandler(activities);
-      } catch (error) {
-        //handle error with snackbar
-      }
-    }
-    getActivities();
-  }, [setActivitiesHandler]);
+    dispatch(getActivitiesAct());
+  }, [dispatch]);
 
   const openFormToggle = (event) => {
     if (isFormOpen === true) {
@@ -49,18 +39,10 @@ const Activities = (props) => {
     setDescriptionInput(event.target.value);
   };
 
+  //create activity submition
   const onFormSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      await createActivity(user.token, nameInput, descriptionInput);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setNameInput("");
-      setDescriptionInput("");
-      setIsFormOpen(false);
-    }
+    dispatch(createActivityAct(user.token, nameInput, descriptionInput));
   };
 
   return (

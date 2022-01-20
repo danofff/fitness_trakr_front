@@ -1,15 +1,16 @@
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import Container from "./ui/Container";
-import { UserContext } from "../store/userContext";
+import { userActions } from "../store/userSlice";
 
 import classes from "./Header.module.css";
 
 const Header = () => {
-  const { user, logOut } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
   const logOutHandler = () => {
-    logOut();
+    dispatch(userActions.logoutUser());
   };
   return (
     <header>

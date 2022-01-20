@@ -12,12 +12,18 @@
   font-size: ;*/
   background-color: #fff;
   transition: all 0.1s ease-in-out;
+  z-index: 9;
 }
 
 .input {
+  position: relative;
+  z-index: 10;
+  background-color: transparent;
+  padding: 0.5rem;
 }
 
 .label.focused {
   top: 0;
   /* maybe change font size */
+  z-index: 11;
 }

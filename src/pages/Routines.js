@@ -1,25 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { DataContext } from "../store/dataContext";
-import { fetchPublicRoutines } from "../utils/apiCalls";
 import Routine from "../components/Routine";
+import { getPublicRoutinesAct } from "../store/dataActions";
 
 import classes from "./Routines.module.css";
 
 const Routines = (props) => {
-  const { setRoutinesHandler, routines } = useContext(DataContext);
+  const dispatch = useDispatch();
+  const routines = useSelector((state) => state.data.routines);
   useEffect(() => {
-    async function fetchRoutines() {
-      try {
-        const routines = await fetchPublicRoutines();
-        setRoutinesHandler(routines);
-      } catch (error) {
-        console.log(error);
-        //handle snackbar
-      }
-    }
-    fetchRoutines();
-  }, [setRoutinesHandler]);
+    dispatch(getPublicRoutinesAct());
+  }, [dispatch]);
   return (
     <section className={classes.routinespage}>
       <h1>Routines</h1>

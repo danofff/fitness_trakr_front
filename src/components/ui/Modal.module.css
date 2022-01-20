@@ -1,0 +1,22 @@
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(1px);
+}
+
+.window {
+  position: fixed;
+  z-index: 21;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid red;
+  padding: 1rem;
+  box-shadow: 0 0 5px 3px #ccc;
+}
