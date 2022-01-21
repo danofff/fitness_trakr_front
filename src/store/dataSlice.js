@@ -107,6 +107,37 @@ const dataSlice = createSlice({
 
       state.myRoutines = allRoutines;
     },
+    editRoutineActivity(state, action) {
+      console.log("edit routine activity");
+      const currentState = current(state);
+      const editedRoutineActivity = action.payload;
+
+      const allRoutines = [...currentState.myRoutines];
+
+      const routineIdx = allRoutines.findIndex(
+        (routine) => routine.id === editedRoutineActivity.routineId
+      );
+
+      const routine = allRoutines[routineIdx];
+
+      const newActivities = [...routine.activities];
+
+      const activityIdx = newActivities.findIndex(
+        (activity) => activity.id === editedRoutineActivity.id
+      );
+
+      const activity = newActivities[activityIdx];
+
+      newActivities.splice(activityIdx, 1, {
+        ...activity,
+        ...editedRoutineActivity,
+      });
+
+      const newRoutine = { ...routine, activities: newActivities };
+      allRoutines.splice(routineIdx, 1, newRoutine);
+
+      state.myRoutines = allRoutines;
+    },
     deleteRoutineActivity(state, action) {
       console.log("routine activity delete");
       const currentState = current(state);

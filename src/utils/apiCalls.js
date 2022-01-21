@@ -227,6 +227,24 @@ export const createRoutineActivity = async (
   }
 };
 
+//edit routine activity
+export const editRoutineActivity = async (token, id, count, duration) => {
+  const response = await fetch(`${apiBase}/routine_activities/${id}`, {
+    method: "PATCH",
+    headers: makeHeaders(token),
+    body: JSON.stringify({
+      count,
+      duration,
+    }),
+  });
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
+  }
+};
+
 //delete routine_activity
 export const deleteRoutineActivity = async (token, id) => {
   const response = await fetch(`${apiBase}/routine_activities/${id}`, {

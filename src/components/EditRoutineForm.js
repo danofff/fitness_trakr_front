@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import FormControl from "./ui/FormControl";
 import StyledCheckbox from "./ui/StyledCheckbox";
-import { deleteRoutineActivityAct, editRoutineAct } from "../store/dataActions";
-import RoutineActivity from "./RoutineActivity";
+import { editRoutineAct } from "../store/dataActions";
 
 import classes from "./EditRoutineForm.module.css";
 
@@ -25,16 +24,13 @@ const EditRoutineForm = ({ routine, onClose }) => {
     setGoalInput(event.target.value);
   };
 
-  const onRoutineActivityDelete = (event, activityId) => {
-    dispatch(deleteRoutineActivityAct(user.token, activityId, routine.id));
-  };
-
   const onEditSubmit = (event) => {
     event.preventDefault();
     console.log("edit is working");
     dispatch(
       editRoutineAct(user.token, routine.id, nameInput, goalInput, isPublic)
     );
+    onClose();
   };
 
   return (
@@ -60,18 +56,6 @@ const EditRoutineForm = ({ routine, onClose }) => {
           }}
           label={isPublic ? "Make it Private" : "Make it Public"}
         />
-        <ul>
-          {routine.activities.map((activity) => {
-            return (
-              <RoutineActivity
-                isInForm={true}
-                key={activity.id}
-                activity={activity}
-                onButtonClick={onRoutineActivityDelete}
-              />
-            );
-          })}
-        </ul>
         <button onClick={onEditSubmit}>Done</button>
       </form>
     </div>

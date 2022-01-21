@@ -11,6 +11,7 @@ import {
   editRoutine,
   fetchRoutinesByUsername,
   fetchRoutinesByActivity,
+  editRoutineActivity,
 } from "../utils/apiCalls";
 import { dataActions } from "./dataSlice";
 
@@ -139,6 +140,20 @@ export const createActivityAct = (token, name, description) => {
   };
 };
 
+export const editActivityAct = (token, id, name, description) => {
+  console.log("edit activity action is working");
+  return async (dispatch) => {
+    try {
+      const editedActivity = await editActivity(token, id, name, description);
+      dispatch(dataActions.editActivity(editedActivity));
+    } catch (error) {
+      console.log(error);
+      //handle error
+    }
+  };
+};
+
+//ROUTINE ACTIVITIES ACTIONS
 export const addRoutineActivityAct = (
   token,
   routineId,
@@ -165,12 +180,17 @@ export const addRoutineActivityAct = (
   };
 };
 
-export const editActivityAct = (token, id, name, description) => {
-  console.log("edit activity action is working");
+export const editRoutineActivityAct = (token, id, count, duration) => {
+  console.log("edit routine activity is working");
   return async (dispatch) => {
     try {
-      const editedActivity = await editActivity(token, id, name, description);
-      dispatch(dataActions.editActivity(editedActivity));
+      const editedRoutineActivity = await editRoutineActivity(
+        token,
+        id,
+        count,
+        duration
+      );
+      dispatch(dataActions.editRoutineActivity(editedRoutineActivity));
     } catch (error) {
       console.log(error);
       //handle error

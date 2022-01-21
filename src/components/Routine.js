@@ -42,7 +42,13 @@ const Routine = ({ routine }) => {
         </Link>
         <ul>
           {routine.activities.map((activity) => {
-            return <RoutineActivity key={activity.id} activity={activity} />;
+            return (
+              <RoutineActivity
+                key={activity.id}
+                activity={activity}
+                routineId={routine.id}
+              />
+            );
           })}
         </ul>
 
