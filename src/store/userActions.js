@@ -1,7 +1,7 @@
 import { userActions } from "./userSlice";
 import { loginUser, registerUser } from "../utils/apiCalls";
 // import { fetchPosts } from "./postsActions";
-// import { uiActions } from "./uiSlice";
+import { uiActions } from "./uiSlice";
 
 export const loginUserAct = (username, password) => {
   return async (dispatch) => {
@@ -12,6 +12,13 @@ export const loginUserAct = (username, password) => {
       return true;
     } catch (error) {
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
       return false;
     }
   };
@@ -24,6 +31,13 @@ export const registerUserAct = (username, password) => {
       return true;
     } catch (error) {
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
       return false;
     }
   };

@@ -9,7 +9,7 @@ import {
 
 import classes from "./RoutineActivity.module.css";
 
-const RoutineActivity = ({ activity, isInForm, routineId }) => {
+const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [countInput, setCountInput] = useState(activity.count);
   const [durationInput, setDurationInput] = useState(activity.duration);
@@ -28,15 +28,18 @@ const RoutineActivity = ({ activity, isInForm, routineId }) => {
     setIsEdited(false);
   };
   return (
-    <li>
-      <button
-        type="button"
-        onClick={(event) => {
-          onRoutineActivityDelete(event, activity.id);
-        }}
-      >
-        X
-      </button>
+    <li className={classes.routineActivity}>
+      {creatorId === user.userId && (
+        <button
+          className={classes.deleteButton}
+          type="button"
+          onClick={(event) => {
+            onRoutineActivityDelete(event, activity.id);
+          }}
+        >
+          X
+        </button>
+      )}
       <Link to={`/activities/${activity.activityId}/routines`}>
         {activity.name}
       </Link>
@@ -55,7 +58,6 @@ const RoutineActivity = ({ activity, isInForm, routineId }) => {
         )}{" "}
         |{" "}
       </span>
-
       <span>
         Duration:{" "}
         {isEdited ? (
@@ -68,14 +70,21 @@ const RoutineActivity = ({ activity, isInForm, routineId }) => {
           activity.duration
         )}
       </span>
-
-      {!isEdited && (
-        <button type="button" onClick={(e) => setIsEdited(!isEdited)}>
+      {!isEdited && creatorId === user.userId && (
+        <button
+          className={classes.editButton}
+          type="button"
+          onClick={(e) => setIsEdited(!isEdited)}
+        >
           &#9998;
         </button>
       )}
       {isEdited && (
-        <button type="button" onClick={onRoutineActivityEdit}>
+        <button
+          className={classes.acceptButton}
+          type="button"
+          onClick={onRoutineActivityEdit}
+        >
           &#10004;
         </button>
       )}

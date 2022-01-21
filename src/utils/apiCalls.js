@@ -4,28 +4,24 @@ import makeHeaders from "./makeHeaders";
 // const apiBase = "https://serene-springs-07906.herokuapp.com/"
 
 //danylo
-// const apiBase = "https://glacial-hamlet-08464.herokuapp.com/api";
+const apiBase = "https://glacial-hamlet-08464.herokuapp.com/api";
 
-const apiBase = "http://localhost:8000/api";
+// const apiBase = "http://localhost:8000/api";
 
 //register user api call
 export const registerUser = async (userData) => {
-  try {
-    const response = await fetch(`${apiBase}/users/register`, {
-      method: "POST",
-      headers: makeHeaders(),
-      body: JSON.stringify(userData),
-    });
-    if (response.ok) {
-      const result = await response.json();
-      //set user right here or return value
-      return result;
-    } else {
-      const error = await response.json();
-      throw new Error(error.error);
-    }
-  } catch (error) {
-    console.log(error.message);
+  const response = await fetch(`${apiBase}/users/register`, {
+    method: "POST",
+    headers: makeHeaders(),
+    body: JSON.stringify(userData),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    //set user right here or return value
+    return result;
+  } else {
+    const error = await response.json();
+    throw new Error(error.error);
   }
 };
 

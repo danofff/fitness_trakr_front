@@ -1,0 +1,11 @@
+.routinespage {
+  padding: 1rem;
+}
+
+.routinespage h1 {
+  font-size: 2rem;
+}
+
+.routinespage ul {
+  list-style: none;
+}

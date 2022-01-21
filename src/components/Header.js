@@ -17,14 +17,23 @@ const Header = () => {
   return (
     <header>
       <Container>
-        <nav className={classes.navigation}>
-          <NavLink to="/routines">Routines</NavLink>
-          <NavLink to="/activities">Activities</NavLink>
-          {user && <NavLink to="/myroutines">My Routines</NavLink>}
-          <NavLink to="/routines">Home</NavLink>
+        <div className={classes.header}>
+          <nav className={classes.navigation}>
+            <NavLink to="/routines">
+              <h1 className={classes.title}>FitnessTrac.kr</h1>
+            </NavLink>
+            <NavLink to="/routines">Home</NavLink>
+            <NavLink to="/routines">Routines</NavLink>
+            <NavLink to="/activities">Activities</NavLink>
+            {user && <NavLink to="/myroutines">My Routines</NavLink>}
+          </nav>
           {!user && <NavLink to="/auth">Login/Register</NavLink>}
-          {user && <button onClick={logOutHandler}>Logout</button>}
-        </nav>
+          {user && (
+            <button className={classes.logoutButton} onClick={logOutHandler}>
+              Logout
+            </button>
+          )}
+        </div>
       </Container>
     </header>
   );

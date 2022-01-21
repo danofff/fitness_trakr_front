@@ -1,0 +1,24 @@
+.snackbar {
+  display: none;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  padding: 0.5rem;
+}
+
+.active {
+  display: block;
+}
+
+.error {
+  background-color: red;
+}
+
+.success {
+  background-color: green;
+}
+
+.default {
+  background-color: blue;
+}

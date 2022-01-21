@@ -14,6 +14,7 @@ import {
   editRoutineActivity,
 } from "../utils/apiCalls";
 import { dataActions } from "./dataSlice";
+import { uiActions } from "./uiSlice";
 
 //ROUTINES ACTIONS
 export const getPublicRoutinesAct = () => {
@@ -23,7 +24,13 @@ export const getPublicRoutinesAct = () => {
       const routines = await fetchPublicRoutines();
       dispatch(dataActions.getRoutines(routines));
     } catch (error) {
-      //handle snackbar
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -35,8 +42,14 @@ export const getMyRoutinesAct = (token) => {
       const routines = await fetchMyRoutines(token);
       dispatch(dataActions.getMyRoutines(routines));
     } catch (error) {
-      //handle snackbar
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -48,8 +61,14 @@ export const getUserRoutinesAct = (username) => {
       const userRoutines = await fetchRoutinesByUsername(username);
       dispatch(dataActions.getUserRoutines(userRoutines));
     } catch (error) {
-      //handle snackbar
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -61,8 +80,14 @@ export const getActivityRoutineAct = (activityId) => {
       const activityRoutines = await fetchRoutinesByActivity(activityId);
       dispatch(dataActions.getActivityRoutines(activityRoutines));
     } catch (error) {
-      //handle snackbar
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -76,8 +101,14 @@ export const createRoutineAct = (token, creatorName, isPublic, name, goal) => {
       createdRoutine.creatorName = creatorName;
       dispatch(dataActions.addRoutine(createdRoutine));
     } catch (error) {
-      //handle snackbar
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -96,7 +127,13 @@ export const editRoutineAct = (token, routineId, name, goal, isPublic) => {
       dispatch(dataActions.editRoutine(editedRoutine));
     } catch (error) {
       console.log(error);
-      //handle snackbar
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -108,8 +145,14 @@ export const deleteRoutineAct = (token, id) => {
       await deleteRoutine(token, id);
       dispatch(dataActions.deleteRoutine(id));
     } catch (error) {
-      //handle snackbar
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -123,6 +166,13 @@ export const getActivitiesAct = () => {
       dispatch(dataActions.getActivities(activities));
     } catch (error) {
       console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -134,8 +184,17 @@ export const createActivityAct = (token, name, description) => {
       const activity = await createActivity(token, name, description);
       dispatch(dataActions.addActivity(activity));
     } catch (error) {
-      //handler errors
       console.log(error);
+      if (error.message.includes("duplicate key value violates")) {
+        error.message = "Activity with that name already exists.";
+      }
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -148,7 +207,13 @@ export const editActivityAct = (token, id, name, description) => {
       dispatch(dataActions.editActivity(editedActivity));
     } catch (error) {
       console.log(error);
-      //handle error
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -175,7 +240,17 @@ export const addRoutineActivityAct = (
       dispatch(dataActions.addRoutineActivity({ routineActivity }));
     } catch (error) {
       console.log(error);
-      //handle error
+      if (error.message.includes("duplicate key value violates")) {
+        error.message =
+          "You cannot add duplicate activities to the same routine";
+      }
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -193,7 +268,13 @@ export const editRoutineActivityAct = (token, id, count, duration) => {
       dispatch(dataActions.editRoutineActivity(editedRoutineActivity));
     } catch (error) {
       console.log(error);
-      //handle error
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -205,8 +286,14 @@ export const deleteRoutineActivityAct = (token, id, routineId) => {
       await deleteRoutineActivity(token, id);
       dispatch(dataActions.deleteRoutineActivity({ id, routineId }));
     } catch (error) {
-      //handler errors
-      // console.log(error);
+      console.log(error);
+      dispatch(
+        uiActions.setSnackbar({
+          isSnackbarOpen: true,
+          text: error.message,
+          type: "error",
+        })
+      );
     }
   };
 };

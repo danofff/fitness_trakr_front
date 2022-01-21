@@ -1,5 +1,33 @@
 .routine {
-  border: 1px solid purple;
-  padding: 0.5rem;
-  margin: 0.5rem;
+  background-color: rgb(230, 228, 228);
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+  border-radius: 10px;
+}
+
+.routine {
+  margin-bottom: 0.3rem;
+}
+
+.routine h2 {
+  font-size: 1.3rem;
+  color: rgb(87, 66, 184);
+}
+
+.routineTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.isPublic {
+  color: rgb(119, 118, 118);
+}
+
+.routine a {
+  color: rgb(65, 132, 196);
+}
+
+.goal {
+  font-weight: 600;
 }

@@ -7,11 +7,16 @@ import RoutineActivity from "./RoutineActivity";
 import EditRoutineForm from "./EditRoutineForm";
 import AddRoutineActivity from "./ui/AddRoutineActivity";
 
+import Modal from "./ui/Modal";
+import { uiActions } from "../store/uiSlice";
+
 import classes from "./Routine.module.css";
 
 const Routine = ({ routine }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [isAddActivity, setIsAddActivity] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
@@ -19,27 +24,51 @@ const Routine = ({ routine }) => {
     setIsAddActivity(true);
   };
 
+  const onDeleteClickHandler = (event) => {
+    setIsModalOpen(true);
+  };
+
   const deleteHandler = (event) => {
     dispatch(deleteRoutineAct(user.token, routine.id));
+    dispatch(uiActions.setIsModalOpen(false));
   };
+
+  const cancelHandler = (event) => {
+    setIsModalOpen(false);
+  };
+
   const editHandler = (event) => {
     setIsEdited(true);
   };
 
   return (
     <>
+      {isModalOpen && (
+        <Modal
+          onAcceptClickHandler={deleteHandler}
+          onCancelClickHandler={cancelHandler}
+          title="Delete Routine?"
+          content={`Are you sure you want to delete ${routine.name}?`}
+          acceptText="Delete"
+        />
+      )}
       <div className={classes.routine}>
-        <h2>{routine.name}</h2>
-        <p>
+        <div className={classes.routineTop}>
+          <h2>{routine.name}</h2>
+          <Link to={`/users/${routine.creatorName}/routines`}>
+            {routine.creatorName}
+          </Link>
+        </div>
+        <p className={classes.isPublic}>
           {user &&
             user.userId === routine.creatorId &&
             (routine.isPublic ? "Public" : "Private")}
         </p>
-        <p>{routine.goal}</p>
-        {/* WRAP USERNAME TO LINK */}
-        <Link to={`/users/${routine.creatorName}/routines`}>
-          {routine.creatorName}
-        </Link>
+        <p>
+          <span className={classes.goal}>Goal: </span>
+          {routine.goal}
+        </p>
+
         <ul>
           {routine.activities.map((activity) => {
             return (
@@ -47,6 +76,7 @@ const Routine = ({ routine }) => {
                 key={activity.id}
                 activity={activity}
                 routineId={routine.id}
+                creatorId={routine.creatorId}
               />
             );
           })}
@@ -56,7 +86,7 @@ const Routine = ({ routine }) => {
           <>
             <button onClick={addActivityHandler}>Add Activity</button>
             <button onClick={editHandler}>Edit</button>
-            <button onClick={deleteHandler}>Delete</button>
+            <button onClick={onDeleteClickHandler}>Delete</button>
           </>
         ) : null}
       </div>

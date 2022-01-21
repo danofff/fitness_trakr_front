@@ -72,7 +72,7 @@ const MyRoutines = (props) => {
   };
   // console.log(myRoutines);
   return (
-    <section className={classes.container}>
+    <section className={classes.routinespage}>
       <h1>My Routines</h1>
 
       {isFormOpen && (

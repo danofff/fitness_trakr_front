@@ -12,7 +12,7 @@ import NotFound from "./pages/NotFound";
 
 import "./App.css";
 import { userActions } from "./store/userSlice";
-import Modal from "./components/ui/Modal";
+import Snackbar from "./components/ui/Snackbar";
 import RoutinesByUser from "./pages/RoutinesByUser";
 import RoutinesByActivity from "./pages/RoutinesByActivity";
 
@@ -21,12 +21,13 @@ function App() {
 
   //dispatch user from localStorage
   const user = useSelector((state) => state.user.user);
+
   useEffect(() => {
     dispatch(userActions.fetchUserFromLocal());
   }, [dispatch]);
   return (
     <div className="App">
-      {/* <Modal /> */}
+      <Snackbar />
       <Header />
       <Container>
         <Routes>
