@@ -120,6 +120,8 @@ const dataSlice = createSlice({
 
       const routine = allRoutines[routineIdx];
 
+      console.log(routine);
+
       const newActivities = [...routine.activities];
 
       const activityIdx = newActivities.findIndex(

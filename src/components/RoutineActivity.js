@@ -29,7 +29,7 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
   };
   return (
     <li className={classes.routineActivity}>
-      {creatorId === user.userId && (
+      {user && creatorId === user.userId && (
         <button
           className={classes.deleteButton}
           type="button"
@@ -70,7 +70,7 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
           activity.duration
         )}
       </span>
-      {!isEdited && creatorId === user.userId && (
+      {!isEdited && user && creatorId === user.userId && (
         <button
           className={classes.editButton}
           type="button"

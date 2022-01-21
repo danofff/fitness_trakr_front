@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 import { uiActions } from "../../store/uiSlice";
+import Container from "./Container";
 
 import classes from "./Snackbar.module.css";
 
@@ -47,8 +48,10 @@ const Snackbar = () => {
         snackbarState.isSnackbarOpen ? classes.active : null
       } ${classes[snackbarState.type]}`}
     >
-      <p>{snackbarState.text}</p>
-      <span onClick={onCloseClickHandler}>X</span>
+      <Container>
+        <p>{snackbarState.text}</p>
+        <span onClick={onCloseClickHandler}>X</span>
+      </Container>
     </div>
   );
 };

@@ -36,7 +36,6 @@ const AddRoutineActivity = ({ routineId, closeFormHandler }) => {
       <select
         onChange={(e) => {
           setSelectInput(e.target.value);
-          console.log(e.target.value);
         }}
         value={selectInput}
       >

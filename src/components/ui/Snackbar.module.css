@@ -7,6 +7,10 @@
   padding: 0.5rem;
 }
 
+.snackbar p {
+  color: #fff;
+}
+
 .active {
   display: block;
 }
