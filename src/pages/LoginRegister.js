@@ -12,6 +12,7 @@ const LoginRegister = (props) => {
   const dispatch = useDispatch();
   const [userNameInput, setUserNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [isSignUp, setSignUp] = useState(false);
 
   const [mode, setMode] = useState("Login");
 
@@ -28,8 +29,10 @@ const LoginRegister = (props) => {
   const onSwitchChange = (event) => {
     if (mode === "Login") {
       setMode("Sign Up");
+      setSignUp(true);
     } else {
       setMode("Login");
+      setSignUp(false);
     }
   };
 
@@ -43,7 +46,7 @@ const LoginRegister = (props) => {
         );
         console.log("success");
         if (isSuccess) {
-          navigate("/myroutines");
+          navigate("/myroutines", { replace: true });
         }
       } catch (error) {
         //handle unsuccessfull request
@@ -87,6 +90,7 @@ const LoginRegister = (props) => {
         />
         <StyledCheckbox
           onChangeHandler={onSwitchChange}
+          checked={isSignUp}
           label={`Switch to ${mode === "Login" ? "Sign Up" : "Login"}`}
         />
         <button type="submit">{mode}</button>

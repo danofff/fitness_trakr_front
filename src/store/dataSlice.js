@@ -35,19 +35,18 @@ const dataSlice = createSlice({
       console.log("edit routine is working");
       const currentState = current(state);
 
+      const allRoutines = [...currentState.myRoutines];
       const editedRoutine = action.payload;
 
-      const routine = currentState.myRoutines.find(
+      const routineIdx = allRoutines.findIndex(
         (routine) => routine.id === action.payload.id
       );
-      const activities = [...routine.activities];
-      editedRoutine.activities = activities;
 
-      const filteredRoutines = currentState.myRoutines.filter(
-        (routine) => routine.id !== editedRoutine.id
-      );
+      const routine = allRoutines[routineIdx];
 
-      state.myRoutines = [...filteredRoutines, editedRoutine];
+      allRoutines.splice(routineIdx, 1, { ...routine, ...editedRoutine });
+
+      state.myRoutines = allRoutines;
     },
     deleteRoutine(state, action) {
       console.log("delete routine is working");
@@ -67,9 +66,15 @@ const dataSlice = createSlice({
     },
     editActivity(state, action) {
       console.log("edit activity is working");
-      state.activities = state.activities.filter(
-        (activity) => activity.id !== action.payload
+      const editedActivity = action.payload;
+      const currentState = current(state);
+      const allActivities = [...currentState.activities];
+      const activityIdx = allActivities.findIndex(
+        (activity) => activity.id === editedActivity.id
       );
+
+      allActivities.splice(activityIdx, 1, editedActivity);
+      state.activities = allActivities;
     },
 
     //ROUTINES ACTIVITIES
@@ -77,9 +82,14 @@ const dataSlice = createSlice({
       console.log("add routine activity");
       const currentState = current(state);
       const addedRoutineActivity = action.payload.routineActivity;
-      const routine = currentState.myRoutines.find(
+
+      const allRoutines = [...currentState.myRoutines];
+
+      const routineIdx = allRoutines.findIndex(
         (routine) => routine.id === addedRoutineActivity.routineId
       );
+
+      const routine = allRoutines[routineIdx];
 
       const newActivities = [...routine.activities];
       const activity = currentState.activities.find(
@@ -93,21 +103,20 @@ const dataSlice = createSlice({
       });
 
       const newRoutine = { ...routine, activities: newActivities };
+      allRoutines.splice(routineIdx, 1, newRoutine);
 
-      const myRoutinesFiltered = currentState.myRoutines.filter(
-        (routine) => routine.id !== addedRoutineActivity.routineId
-      );
-      console.log(myRoutinesFiltered);
-
-      state.myRoutines = [...myRoutinesFiltered, newRoutine];
+      state.myRoutines = allRoutines;
     },
     deleteRoutineActivity(state, action) {
       console.log("routine activity delete");
       const currentState = current(state);
 
-      const routine = currentState.myRoutines.find(
+      const allRoutines = [...currentState.myRoutines];
+      const routineIdx = currentState.myRoutines.findIndex(
         (routine) => routine.id === action.payload.routineId
       );
+
+      const routine = allRoutines[routineIdx];
 
       const newRoutinesActivities = routine.activities.filter(
         (activity) => activity.id !== action.payload.id
@@ -115,11 +124,9 @@ const dataSlice = createSlice({
 
       const newRoutine = { ...routine, activities: newRoutinesActivities };
 
-      const filteredRoutinesState = currentState.myRoutines.filter(
-        (routine) => routine.id !== action.payload.routineId
-      );
+      allRoutines.splice(routineIdx, 1, newRoutine);
 
-      state.myRoutines = [...filteredRoutinesState, newRoutine];
+      state.myRoutines = allRoutines;
     },
   },
 });

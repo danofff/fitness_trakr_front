@@ -158,13 +158,24 @@ export const addRoutineActivityAct = (
       );
 
       dispatch(dataActions.addRoutineActivity({ routineActivity }));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      //handle error
+    }
   };
 };
 
-export const editActivityAct = (token, name, description) => {
+export const editActivityAct = (token, id, name, description) => {
   console.log("edit activity action is working");
-  return async (dispatch) => {};
+  return async (dispatch) => {
+    try {
+      const editedActivity = await editActivity(token, id, name, description);
+      dispatch(dataActions.editActivity(editedActivity));
+    } catch (error) {
+      console.log(error);
+      //handle error
+    }
+  };
 };
 
 export const deleteRoutineActivityAct = (token, id, routineId) => {

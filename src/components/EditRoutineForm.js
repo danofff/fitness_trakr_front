@@ -26,7 +26,6 @@ const EditRoutineForm = ({ routine, onClose }) => {
   };
 
   const onRoutineActivityDelete = (event, activityId) => {
-    console.log("delete is working", activityId);
     dispatch(deleteRoutineActivityAct(user.token, activityId, routine.id));
   };
 

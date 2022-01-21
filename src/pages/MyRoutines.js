@@ -22,16 +22,14 @@ const MyRoutines = (props) => {
   const [nameInput, setNameInput] = useState("");
   const [goalInput, setGoalInput] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-  const [shouldFetchRoutines, setShouldFetchRoutines] = useState(true);
 
-  //fetch all my routines
+  //fetch all myroutines
   useEffect(() => {
-    if (user && shouldFetchRoutines) {
+    if (user) {
       dispatch(getMyRoutinesAct(user.token));
-      setShouldFetchRoutines(false);
+      dispatch(getActivitiesAct());
     }
-    dispatch(getActivitiesAct());
-  }, [user, shouldFetchRoutines, dispatch]);
+  }, [user, dispatch]);
 
   //open add routine form handler
   const openFormToggle = (event) => {

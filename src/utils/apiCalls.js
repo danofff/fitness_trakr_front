@@ -139,6 +139,7 @@ export const createRoutine = async (token, isPublic, name, goal) => {
   }
 };
 
+//edit routine
 export const editRoutine = async (token, routineId, name, goal, isPublic) => {
   const response = await fetch(`${apiBase}/routines/${routineId}`, {
     method: "PATCH",
@@ -201,7 +202,7 @@ export const editActivity = async (token, id, name, description) => {
   }
 };
 
-//delete routine activity
+//create routine_activity
 export const createRoutineActivity = async (
   token,
   routineId,
@@ -225,6 +226,8 @@ export const createRoutineActivity = async (
     throw new Error(error.error);
   }
 };
+
+//delete routine_activity
 export const deleteRoutineActivity = async (token, id) => {
   const response = await fetch(`${apiBase}/routine_activities/${id}`, {
     method: "DELETE",

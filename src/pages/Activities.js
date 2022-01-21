@@ -48,31 +48,30 @@ const Activities = (props) => {
   return (
     <section className={classes.activities}>
       <h1>Activities</h1>
-
-      {isFormOpen ? (
-        <form className={classes.form} onSubmit={onFormSubmit}>
-          <button onClick={openFormToggle} type="button">
-            X
-          </button>
-          <h3>Create A New Activity</h3>
-          <FormControl
-            type="text"
-            value={nameInput}
-            onInputChange={onNameInputChange}
-            label="name"
-          />
-          <FormControl
-            type="text"
-            value={descriptionInput}
-            onInputChange={onDescriptionInputChange}
-            label="description"
-          />
-          <button type="submit">Create</button>
-        </form>
-      ) : (
-        <button onClick={openFormToggle}>Create new activity</button>
-      )}
-
+      {user &&
+        (isFormOpen ? (
+          <form className={classes.form} onSubmit={onFormSubmit}>
+            <button onClick={openFormToggle} type="button">
+              X
+            </button>
+            <h3>Create A New Activity</h3>
+            <FormControl
+              type="text"
+              value={nameInput}
+              onInputChange={onNameInputChange}
+              label="name"
+            />
+            <FormControl
+              type="text"
+              value={descriptionInput}
+              onInputChange={onDescriptionInputChange}
+              label="description"
+            />
+            <button type="submit">Create</button>
+          </form>
+        ) : (
+          <button onClick={openFormToggle}>Create new activity</button>
+        ))}
       <ul>
         {activities.map((activity) => {
           return <Activity key={activity.id} activity={activity} />;
