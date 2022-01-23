@@ -1,33 +1,167 @@
 .routine {
-  background-color: rgb(230, 228, 228);
-  padding: 1rem;
-  margin: 1rem 0.5rem;
+  background-color: white;
   border-radius: 10px;
+  width: 50vw;
+  margin: 1rem 0.5rem;
 }
 
-.routine {
-  margin-bottom: 0.3rem;
+.inner {
+  margin: 1.5rem 2rem 1.5rem 1.5rem;
+  padding: 1rem 0 1rem 1.5rem;
+  border-left: 3px solid orange;
 }
 
-.routine h2 {
-  font-size: 1.3rem;
-  color: rgb(87, 66, 184);
+.goal,
+.table {
+  margin: 1rem 0;
 }
 
 .routineTop {
   display: flex;
+  align-items: start;
   justify-content: space-between;
-  align-items: center;
 }
 
-.isPublic {
-  color: rgb(119, 118, 118);
+.routine h2 {
+  font-size: 1.3rem;
+}
+
+.byCreator {
+  text-decoration: none;
+}
+
+.goalLabel {
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.editFormBox {
+  display: flex;
+  justify-content: end;
+}
+
+.editRoutineButton {
+  display: inline-block;
+  height: 2.5rem;
+}
+
+.labelTR {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.labelTR td {
+  padding: 0.3rem 2rem 0.3rem 0;
+}
+
+.deleteTD {
+  width: 30px;
+}
+
+.nameTD {
+  width: 15rem;
+}
+
+.descriptionTD {
+  width: 15rem;
+}
+
+.countTD,
+.durationTD {
+  width: 5rem;
+}
+
+.editButtonsTD {
+  width: 3rem;
 }
 
 .routine a {
-  color: rgb(65, 132, 196);
+  color: orange;
 }
 
-.goal {
-  font-weight: 600;
+.routine a:hover {
+  color: rgb(243, 113, 38);
+  transition: color 0.5s ease-in-out;
+}
+
+/* For My Routines */
+.isPublic {
+  margin: 0.5rem 0;
+  color: rgb(161, 161, 161);
+}
+
+.editRoutineButton {
+  display: inline-block;
+  border: none;
+  background-color: orange;
+  padding: 0.5rem 0.5rem 0.5rem 0.6rem;
+  border-radius: 4px;
+  height: 2rem;
+  margin-left: 0.5rem;
+}
+
+.editRoutineButton i {
+  color: white;
+}
+
+.editRoutineButton:hover {
+  background-color: rgb(243, 113, 38);
+  transition: background-color 0.5s ease-in-out;
+}
+
+.addActivityButton {
+  width: 15vw;
+  padding: 0.5rem;
+  border: none;
+  background-color: #0061ff;
+  color: white;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.addActivityButton i {
+  color: white;
+  margin-right: 0.2rem;
+}
+
+.addActivityButton:hover {
+  background-color: #003c9c;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.cancelAddActivityButton {
+  width: 15vw;
+  padding: 0.5rem;
+  border: none;
+  background-color: #0061ff;
+  color: white;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.cancelAddActivityButton:hover {
+  background-color: #003c9c;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.deleteButtonBox {
+  display: flex;
+  justify-content: end;
+}
+
+.deleteButton {
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.deleteButton:hover {
+  background-color: rgb(255, 66, 66);
+  color: white;
+  border: 1px solid rgb(255, 66, 66);
+  transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out,
+    0.5s ease-in-out;
 }

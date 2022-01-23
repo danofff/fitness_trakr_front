@@ -2,13 +2,26 @@
   display: none;
   color: white;
   position: fixed;
-  bottom: 0;
-  width: 100vw;
-  padding: 0.5rem;
+  bottom: 1rem;
+  left: 35%;
+  width: 30vw;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
-.snackbar p {
+.snackbarBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.snackbar p,
+.snackbar span {
   color: #fff;
+}
+
+.snackbar span {
+  margin-left: 3rem;
 }
 
 .active {
@@ -16,13 +29,5 @@
 }
 
 .error {
-  background-color: red;
-}
-
-.success {
-  background-color: green;
-}
-
-.default {
-  background-color: blue;
+  background-color: rgb(255, 66, 66);
 }

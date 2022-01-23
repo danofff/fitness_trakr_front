@@ -18,7 +18,7 @@ const RoutinesByUser = (props) => {
 
   return (
     <section className={classes.routinespage}>
-      <h1>Routines by {username}</h1>
+      <h1>Routines by "{username}"</h1>
       <ul>
         {userRoutines.map((routine) => {
           return <RoutinePublic key={routine.id} routine={routine} />;

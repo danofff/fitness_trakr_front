@@ -69,46 +69,70 @@ const MyRoutines = (props) => {
         goalInput
       )
     );
+
+    setNameInput("");
+    setGoalInput("");
+    setIsPublic(false);
+    setIsFormOpen(false);
   };
   // console.log(myRoutines);
   return (
     <section className={classes.routinespage}>
       <h1>My Routines</h1>
+      <div className={classes.main}>
+        {isFormOpen && (
+          <form className={classes.form} onSubmit={onFormSubmit}>
+            <h3>Create A New Routine</h3>
+            <div className={classes.formRight}>
+              <div className={classes.cancelButtonBox}>
+                <button
+                  className={classes.cancelButton}
+                  onClick={openFormToggle}
+                  type="button"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
 
-      {isFormOpen && (
-        <form className={classes.form} onSubmit={onFormSubmit}>
-          <button onClick={openFormToggle} type="button">
-            X
+              <div className={classes.inputsBox}>
+                <FormControl
+                  type="text"
+                  value={nameInput}
+                  onInputChange={onNameInputChange}
+                  label="Name"
+                />
+                <FormControl
+                  type="text"
+                  value={goalInput}
+                  onInputChange={onGoalInputChange}
+                  label="Goal"
+                />
+
+                <StyledCheckbox
+                  onChangeHandler={onSwitchChange}
+                  label={isPublic ? "Public Routine" : "Private Routine"}
+                  checked={isPublic}
+                />
+
+                <button className={classes.submitButton} type="submit">
+                  Create Routine
+                </button>
+              </div>
+            </div>
+          </form>
+        )}
+
+        {!isFormOpen && (
+          <button className={classes.openFormButton} onClick={openFormToggle}>
+            <i class="fas fa-plus-circle"></i> New Routine
           </button>
-          <h3>Create A New Routine</h3>
-          <FormControl
-            type="text"
-            value={nameInput}
-            onInputChange={onNameInputChange}
-            label="name"
-          />
-          <FormControl
-            type="text"
-            value={goalInput}
-            onInputChange={onGoalInputChange}
-            label="goal"
-          />
-          <StyledCheckbox
-            onChangeHandler={onSwitchChange}
-            label={isPublic ? "Make it Private" : "Make it Public"}
-            checked={isPublic}
-          />
-          <button type="submit">Create</button>
-        </form>
-      )}
-      {!isFormOpen && (
-        <button onClick={openFormToggle}>Create new routine</button>
-      )}
-      <ul>
-        {myRoutines.map((routine) => {
-          return <Routine key={routine.id} routine={routine} />;
-        })}
-      </ul>
+        )}
+        <ul>
+          {myRoutines.map((routine) => {
+            return <Routine key={routine.id} routine={routine} />;
+          })}
+        </ul>
+      </div>
     </section>
   );
 };

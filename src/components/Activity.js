@@ -31,37 +31,54 @@ const Activity = ({ activity }) => {
   };
 
   return (
-    <>
-      <form className={classes.activity} onSubmit={onEditAccept}>
-        {isEditMode ? (
-          <FormControl
-            type="text"
-            label="Name"
-            value={nameInput}
-            onInputChange={(e) => setNameInput(e.target.value)}
-          />
-        ) : (
-          <Link to={`/activities/${activity.id}/routines`}>
-            <h2>{activity.name}</h2>
-          </Link>
-        )}
-        {isEditMode ? (
-          <textarea
-            value={descriptionInput}
-            onChange={(e) => setDescriptionInput(e.target.value)}
-          ></textarea>
-        ) : (
-          <p>{activity.description}</p>
-        )}
+    <div className={classes.activity}>
+      <div className={classes.inner}>
+        <form className={classes.form} onSubmit={onEditAccept}>
+          {isEditMode ? (
+            <div className={classes.textInput}>
+              <FormControl
+                type="text"
+                label="Name"
+                value={nameInput}
+                onInputChange={(e) => setNameInput(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div className={classes.textInput}>
+              <Link to={`/activities/${activity.id}/routines`}>
+                <h2>{activity.name}</h2>
+              </Link>
+            </div>
+          )}
+          {isEditMode ? (
+            <div className={classes.textInput}>
+              <textarea
+                value={descriptionInput}
+                onChange={(e) => setDescriptionInput(e.target.value)}
+              ></textarea>
+            </div>
+          ) : (
+            <div className={classes.textInput}>
+              <p>{activity.description}</p>
+            </div>
+          )}
 
-        {user && (
-          <button onClick={onClickEditHandler} type="button">
-            {isEditMode ? "X" : "Edit"}
-          </button>
-        )}
-        {isEditMode && <button>&#10004;</button>}
-      </form>
-    </>
+          {user && (
+            <button
+              onClick={onClickEditHandler}
+              className={classes.editFormToggle}
+              type="button"
+            >
+              {isEditMode ? "Cancel" : "Edit"}
+            </button>
+          )}
+          {isEditMode && (
+            // <button className={classes.acceptButton}>&#10004;</button>
+            <button className={classes.acceptButton}>Done</button>
+          )}
+        </form>
+      </div>
+    </div>
   );
 };
 

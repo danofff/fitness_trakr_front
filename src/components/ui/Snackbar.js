@@ -44,14 +44,14 @@ const Snackbar = () => {
 
   return (
     <div
+      onClick={onCloseClickHandler}
       className={`${classes.snackbar} ${
         snackbarState.isSnackbarOpen ? classes.active : null
       } ${classes[snackbarState.type]}`}
     >
-      <Container>
+      <div classname={classes.snackbarBox}>
         <p>{snackbarState.text}</p>
-        <span onClick={onCloseClickHandler}>X</span>
-      </Container>
+      </div>
     </div>
   );
 };

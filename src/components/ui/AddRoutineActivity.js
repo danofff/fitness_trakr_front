@@ -29,41 +29,62 @@ const AddRoutineActivity = ({ routineId, closeFormHandler }) => {
   };
 
   return (
-    <form onSubmit={onAddActivitySubmit}>
-      <button type="button" onClick={() => closeFormHandler(false)}>
-        X
-      </button>
-      <select
-        onChange={(e) => {
-          setSelectInput(e.target.value);
-        }}
-        value={selectInput}
-      >
-        {activities.map((activity) => {
-          return (
-            <option value={activity.id} key={activity.id}>
-              {activity.name}
-            </option>
-          );
-        })}
-      </select>
-      <label htmlFor="count">Count</label>
-      <input
-        type="number"
-        name="count"
-        value={countInput}
-        onChange={(e) => {
-          setCountInput(e.target.value);
-        }}
-      />
-      <label htmlFor="duration">Duration</label>
-      <input
-        type="number"
-        name="duration"
-        value={durationInput}
-        onChange={(e) => setDurationInput(e.target.value)}
-      />
-      <button>Add activity</button>
+    <form className={classes.form} onSubmit={onAddActivitySubmit}>
+      <table>
+        <tr className={classes.labelTR}>
+          <td>
+            <label htmlFor="activity">Activity</label>
+          </td>
+          <td>
+            <label htmlFor="count">Count</label>
+          </td>
+          <td>
+            <label htmlFor="duration">Duration</label>
+          </td>
+        </tr>
+
+        <tr className={classes.addTR}>
+          <td>
+            <select
+              onChange={(e) => {
+                setSelectInput(e.target.value);
+              }}
+              value={selectInput}
+            >
+              {activities.map((activity) => {
+                return (
+                  <option value={activity.id} key={activity.id}>
+                    {activity.name}
+                  </option>
+                );
+              })}
+            </select>
+          </td>
+          <td>
+            <input
+              className={classes.numInput}
+              type="number"
+              name="count"
+              value={countInput}
+              onChange={(e) => {
+                setCountInput(e.target.value);
+              }}
+            />
+          </td>
+          <td>
+            <input
+              className={classes.numInput}
+              type="number"
+              name="duration"
+              value={durationInput}
+              onChange={(e) => setDurationInput(e.target.value)}
+            />
+          </td>
+          <td className={classes.addButtonTD}>
+            <button className={classes.addActivityButton}>Add activity</button>
+          </td>
+        </tr>
+      </table>
     </form>
   );
 };

@@ -15,8 +15,18 @@ const Modal = ({
         <h3>{title}</h3>
         <p>{content}</p>
         <div className={classes.actions}>
-          <button onClick={onCancelClickHandler}>Cancel</button>
-          <button onClick={onAcceptClickHandler}>{acceptText}</button>
+          <button
+            className={classes.cancelButton}
+            onClick={onCancelClickHandler}
+          >
+            Cancel
+          </button>
+          <button
+            className={classes.acceptButton}
+            onClick={onAcceptClickHandler}
+          >
+            {acceptText}
+          </button>
         </div>
       </div>
     </div>,

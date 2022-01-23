@@ -1,0 +1,123 @@
+.activities {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.activities h1 {
+  margin: 1rem;
+  padding-right: 1rem;
+  font-size: 2.75rem;
+  border-right: 3px solid #0061ff;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.openFormButton {
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 15vw;
+  background-color: #0061ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.openFormButton i {
+  color: white;
+  margin-right: 0.2rem;
+}
+
+.openFormButton:hover {
+  background-color: #003c9c;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.form {
+  display: flex;
+  margin: 1rem 0 0 0.5rem;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 30rem;
+}
+
+.form h3 {
+  color: #0061ff;
+  font-size: 1.5rem;
+  width: 7rem;
+  border-right: 3px solid #0061ff;
+  padding-right: 2rem;
+  margin: 0rem 2rem;
+}
+
+.formRight {
+  display: flex;
+  flex-direction: column;
+}
+
+.cancelButtonBox {
+  display: flex;
+  justify-content: end;
+  width: 15vw;
+  margin-bottom: 2rem;
+}
+
+.cancelButton i {
+  color: black;
+}
+
+.cancelButton i:hover {
+  color: grey;
+}
+
+.form button {
+  padding: 0.5rem;
+  font-weight: 600;
+  height: 2rem;
+}
+
+.inputsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.inputsBox * {
+  margin-bottom: 0.5rem;
+}
+
+.submitButton {
+  background-color: #0061ff;
+  color: white;
+  border: 1px solid #0061ff;
+  border-radius: 4px;
+  width: 10.5rem;
+}
+
+.submitButton:hover {
+  background-color: #003c9c;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.cancelButton {
+  color: black;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.cancelButton:hover {
+  color: grey;
+  transition: color 0.5s ease-in-out;
+}
+
+.activities ul {
+  display: flex;
+  flex-direction: column;
+}

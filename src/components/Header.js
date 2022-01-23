@@ -18,21 +18,39 @@ const Header = () => {
     <header>
       <Container>
         <div className={classes.header}>
+          <NavLink to="/routines">
+            <h1 className={classes.title}>
+              <i class="fas fa-heartbeat"></i> FitnessTrac.kr
+            </h1>
+          </NavLink>
+
           <nav className={classes.navigation}>
-            <NavLink to="/routines">
-              <h1 className={classes.title}>FitnessTrac.kr</h1>
+            <NavLink to="/routines" className={classes.plainLink}>
+              Home
             </NavLink>
-            <NavLink to="/routines">Home</NavLink>
-            <NavLink to="/routines">Routines</NavLink>
-            <NavLink to="/activities">Activities</NavLink>
-            {user && <NavLink to="/myroutines">My Routines</NavLink>}
+            <NavLink to="/routines" className={classes.plainLink}>
+              Routines
+            </NavLink>
+            <NavLink to="/activities" className={classes.plainLink}>
+              Activities
+            </NavLink>
+            {user && (
+              <NavLink to="/myroutines" className={classes.plainLink}>
+                My Routines
+              </NavLink>
+            )}
+
+            {!user && (
+              <NavLink to="/auth">
+                <button className={classes.loginButton}>Login/Register</button>
+              </NavLink>
+            )}
+            {user && (
+              <button className={classes.logoutButton} onClick={logOutHandler}>
+                Logout
+              </button>
+            )}
           </nav>
-          {!user && <NavLink to="/auth">Login/Register</NavLink>}
-          {user && (
-            <button className={classes.logoutButton} onClick={logOutHandler}>
-              Logout
-            </button>
-          )}
         </div>
       </Container>
     </header>

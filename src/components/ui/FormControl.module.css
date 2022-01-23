@@ -5,11 +5,9 @@
 
 .container label {
   position: absolute;
-  left: 1.5rem;
-  top: 50%;
+  left: 0.8rem;
+  top: 38%;
   transform: translateY(-50%);
-  /* color: ;
-  font-size: ;*/
   background-color: #fff;
   transition: all 0.1s ease-in-out;
   z-index: 9;
@@ -20,10 +18,11 @@
   z-index: 10;
   background-color: transparent;
   padding: 0.5rem;
+  border-radius: 4px;
 }
 
 .label.focused {
   top: 0;
-  /* maybe change font size */
+  font-size: 0.8rem;
   z-index: 11;
 }

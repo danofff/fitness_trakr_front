@@ -29,7 +29,7 @@ function App() {
     <div className="App">
       <Snackbar />
       <Header />
-      <Container>
+      <Container className="main">
         <Routes>
           <Route path="/routines" element={<Routines />} />
           {user && <Route path="/myroutines" element={<MyRoutines />} />}

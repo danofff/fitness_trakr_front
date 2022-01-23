@@ -14,7 +14,7 @@ const LoginRegister = (props) => {
   const [passwordInput, setPasswordInput] = useState("");
   const [isSignUp, setSignUp] = useState(false);
 
-  const [mode, setMode] = useState("Login");
+  const [mode, setMode] = useState("Log In");
 
   const navigate = useNavigate();
 
@@ -27,18 +27,18 @@ const LoginRegister = (props) => {
   };
 
   const onSwitchChange = (event) => {
-    if (mode === "Login") {
+    if (mode === "Log In") {
       setMode("Sign Up");
       setSignUp(true);
     } else {
-      setMode("Login");
+      setMode("Log In");
       setSignUp(false);
     }
   };
 
   const onFormSubmit = async (event) => {
     event.preventDefault();
-    if (mode === "Login") {
+    if (mode === "Log In") {
       //call login api
       try {
         const isSuccess = await dispatch(
@@ -62,6 +62,9 @@ const LoginRegister = (props) => {
           registerUserAct(userNameInput, passwordInput)
         );
         console.log("success");
+        if (isSuccess) {
+          setMode("Log In");
+        }
       } catch (error) {
         //handle unsuccessfull request
         //...
@@ -73,29 +76,46 @@ const LoginRegister = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <h1>{mode === "Login" ? "Login" : "Sign up"}</h1>
+    <div className={classes.loginRegister}>
+      {mode === "Log In" ? (
+        <div className={classes.loginPanel}>
+          <h3>Welcome back!</h3>
+          <p>Let's get this party started &#128548;&#128170;</p>
+        </div>
+      ) : (
+        <div className={classes.registerPanel}>
+          <h3>New here?</h3>
+          <p>Sign up and get your workout on &#128526; &#128293;</p>
+        </div>
+      )}
+
       <form className={classes.form} onSubmit={onFormSubmit}>
-        <FormControl
-          type="text"
-          value={userNameInput}
-          onInputChange={onUserNameInputChange}
-          label="Username"
-        />
-        <FormControl
-          type="password"
-          value={passwordInput}
-          onInputChange={onPasswordInputChange}
-          label="Password"
-        />
+        <h1>{mode === "Log In" ? "Log In" : "Sign up"}</h1>
+        <div className={classes.inputContainer}>
+          <FormControl
+            type="text"
+            value={userNameInput}
+            onInputChange={onUserNameInputChange}
+            label="Username"
+          />
+          <FormControl
+            type="password"
+            value={passwordInput}
+            onInputChange={onPasswordInputChange}
+            label="Password"
+          />
+        </div>
+
         <StyledCheckbox
           onChangeHandler={onSwitchChange}
           checked={isSignUp}
-          label={`Switch to ${mode === "Login" ? "Sign Up" : "Login"}`}
+          label={`Switch to ${mode === "Log In" ? "Sign Up" : "Log In"}`}
         />
-        <button type="submit">{mode}</button>
+        <button className={classes.submitButton} type="submit">
+          {mode}
+        </button>
       </form>
-    </React.Fragment>
+    </div>
   );
 };
 

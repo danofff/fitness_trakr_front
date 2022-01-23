@@ -6,29 +6,44 @@ import classes from "./Routine.module.css";
 const Routine = ({ routine }) => {
   return (
     <div className={classes.routine}>
-      <div className={classes.routineTop}>
-        <h2>{routine.name}</h2>
-        <Link to={`/users/${routine.creatorName}/routines`}>
-          {routine.creatorName}
-        </Link>
-      </div>
-      <p>
-        <span className={classes.goal}>Goal: </span>
-        {routine.goal}
-      </p>
+      <div className={classes.inner}>
+        <div className={classes.routineTop}>
+          <h2>{routine.name}</h2>
+          <div>
+            <span>by: </span>
+            <Link to={`/users/${routine.creatorName}/routines`}>
+              {routine.creatorName}
+            </Link>
+          </div>
+        </div>
 
-      <ul>
-        {routine.activities.map((activity) => {
-          return (
-            <RoutineActivityPublic
-              key={activity.id}
-              activity={activity}
-              routineId={routine.id}
-              creatorId={routine.creatorId}
-            />
-          );
-        })}
-      </ul>
+        <p className={classes.goal}>
+          <span className={classes.goalLabel}>Goal: </span>
+          {routine.goal}
+        </p>
+
+        <table className={classes.table}>
+          {/* label row */}
+          <tr className={classes.labelTR}>
+            <td className={classes.nameTD}>Activity</td>
+            <td className={classes.descriptionTD}>Description</td>
+            <td className={classes.countTD}>Count</td>
+            <td className={classes.durationTD}>Duration</td>
+          </tr>
+
+          {/* routine activities rows */}
+          {routine.activities.map((activity) => {
+            return (
+              <RoutineActivityPublic
+                key={activity.id}
+                activity={activity}
+                routineId={routine.id}
+                creatorId={routine.creatorId}
+              />
+            );
+          })}
+        </table>
+      </div>
     </div>
   );
 };

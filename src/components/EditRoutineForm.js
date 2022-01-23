@@ -35,28 +35,35 @@ const EditRoutineForm = ({ routine, onClose }) => {
 
   return (
     <div>
-      <button onClick={onClose}>X</button>
-      <form className={classes.container}>
+      <form className={classes.form}>
+        <div className={classes.buttonBox}>
+          <button className={classes.cancelButton} onClick={onClose}>
+            Cancel
+          </button>
+          <button className={classes.submitButton} onClick={onEditSubmit}>
+            Edit
+          </button>
+        </div>
+
         <FormControl
           type="text"
           value={nameInput}
           onInputChange={onNameChange}
-          label="name"
+          label="Name"
         />
         <FormControl
           type="text"
           value={goalInput}
           onInputChange={onDescriptionChange}
-          label="goal"
+          label="Goal"
         />
         <StyledCheckbox
           checked={isPublic}
           onChangeHandler={() => {
             setIsPublic(!isPublic);
           }}
-          label={isPublic ? "Make it Private" : "Make it Public"}
+          label={isPublic ? "Public Routine" : "Private Routine"}
         />
-        <button onClick={onEditSubmit}>Done</button>
       </form>
     </div>
   );

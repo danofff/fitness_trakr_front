@@ -28,25 +28,31 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
     setIsEdited(false);
   };
   return (
-    <li className={classes.routineActivity}>
-      {user && creatorId === user.userId && (
-        <button
-          className={classes.deleteButton}
-          type="button"
-          onClick={(event) => {
-            onRoutineActivityDelete(event, activity.id);
-          }}
-        >
-          X
-        </button>
-      )}
-      <Link to={`/activities/${activity.activityId}/routines`}>
-        {activity.name}
-      </Link>
-      {" | "}
-      <span>{activity.description} | </span>
-      <span>
-        Count:{" "}
+    <tr className={classes.routineActivity}>
+      {/* delete button */}
+      <td className={classes.deleteTD}>
+        {user && creatorId === user.userId && (
+          <button
+            className={classes.deleteButton}
+            type="button"
+            onClick={(event) => {
+              onRoutineActivityDelete(event, activity.id);
+            }}
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        )}
+      </td>
+
+      {/* single routine activity */}
+      <td className={classes.nameTD}>
+        <Link to={`/activities/${activity.activityId}/routines`}>
+          {activity.name}
+        </Link>
+      </td>
+      <td className={classes.descriptionTD}>{activity.description}</td>
+
+      <td className={classes.countTD}>
         {isEdited ? (
           <input
             type="number"
@@ -55,11 +61,10 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
           />
         ) : (
           activity.count
-        )}{" "}
-        |{" "}
-      </span>
-      <span>
-        Duration:{" "}
+        )}
+      </td>
+
+      <td className={classes.durationTD}>
         {isEdited ? (
           <input
             type="number"
@@ -69,26 +74,30 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
         ) : (
           activity.duration
         )}
-      </span>
-      {!isEdited && user && creatorId === user.userId && (
-        <button
-          className={classes.editButton}
-          type="button"
-          onClick={(e) => setIsEdited(!isEdited)}
-        >
-          &#9998;
-        </button>
-      )}
-      {isEdited && (
-        <button
-          className={classes.acceptButton}
-          type="button"
-          onClick={onRoutineActivityEdit}
-        >
-          &#10004;
-        </button>
-      )}
-    </li>
+      </td>
+
+      {/* edit buttons */}
+      <td className={classes.editButtonsTD}>
+        {!isEdited && user && creatorId === user.userId && (
+          <button
+            className={classes.editButton}
+            type="button"
+            onClick={(e) => setIsEdited(!isEdited)}
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+        )}
+        {isEdited && (
+          <button
+            className={classes.acceptButton}
+            type="button"
+            onClick={onRoutineActivityEdit}
+          >
+            <i class="fas fa-check"></i>
+          </button>
+        )}
+      </td>
+    </tr>
   );
 };
 

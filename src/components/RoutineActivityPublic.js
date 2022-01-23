@@ -28,15 +28,16 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
     setIsEdited(false);
   };
   return (
-    <li className={classes.routineActivity}>
-      <Link to={`/activities/${activity.activityId}/routines`}>
-        {activity.name}
-      </Link>
-      {" | "}
-      <span>{activity.description} | </span>
-      <span>Count: {activity.count}</span>
-      <span> {activity.duration}</span>
-    </li>
+    <tr className={classes.routineActivity}>
+      <td className={classes.nameTD}>
+        <Link to={`/activities/${activity.activityId}/routines`}>
+          {activity.name}
+        </Link>
+      </td>
+      <td className={classes.descriptionTD}>{activity.description}</td>
+      <td className={classes.countTD}>{activity.count}</td>
+      <td className={classes.durationTD}>{activity.duration}</td>
+    </tr>
   );
 };
 
