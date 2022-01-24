@@ -53,6 +53,7 @@ const Activity = ({ activity }) => {
           {isEditMode ? (
             <div className={classes.textInput}>
               <textarea
+                rows="4"
                 value={descriptionInput}
                 onChange={(e) => setDescriptionInput(e.target.value)}
               ></textarea>

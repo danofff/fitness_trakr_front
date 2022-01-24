@@ -39,7 +39,7 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
               onRoutineActivityDelete(event, activity.id);
             }}
           >
-            <i class="fas fa-trash-alt"></i>
+            <i className="fas fa-trash-alt"></i>
           </button>
         )}
       </td>
@@ -56,6 +56,8 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
         {isEdited ? (
           <input
             type="number"
+            min="1"
+            step="1"
             onChange={(e) => setCountInput(e.target.value)}
             value={countInput}
           />
@@ -68,6 +70,8 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
         {isEdited ? (
           <input
             type="number"
+            min="1"
+            step="1"
             onChange={(e) => setDurationInput(e.target.value)}
             value={durationInput}
           />
@@ -84,7 +88,7 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
             type="button"
             onClick={(e) => setIsEdited(!isEdited)}
           >
-            <i class="fas fa-edit"></i>
+            <i className="fas fa-edit"></i>
           </button>
         )}
         {isEdited && (
@@ -93,7 +97,7 @@ const RoutineActivity = ({ activity, isInForm, routineId, creatorId }) => {
             type="button"
             onClick={onRoutineActivityEdit}
           >
-            <i class="fas fa-check"></i>
+            <i className="fas fa-check"></i>
           </button>
         )}
       </td>

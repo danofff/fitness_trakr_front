@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { deleteRoutineAct } from "../store/dataActions";
 import RoutineActivity from "./RoutineActivity";
 import EditRoutineForm from "./EditRoutineForm";
-import AddRoutineActivity from "./ui/AddRoutineActivity";
+import AddRoutineActivity from "./AddRoutineActivity";
 
 import Modal from "./ui/Modal";
 import { uiActions } from "../store/uiSlice";
@@ -16,14 +15,15 @@ const Routine = ({ routine }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [isAddActivity, setIsAddActivity] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+  // const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   const user = useSelector((state) => state.user.user);
+  const activities = useSelector((state) => state.data.activities);
   const dispatch = useDispatch();
 
   const addActivityHandler = (event) => {
     setIsAddActivity(true);
-    setIsAddFormOpen(true);
+    // setIsAddFormOpen(true);
   };
 
   const onDeleteClickHandler = (event) => {
@@ -41,6 +41,14 @@ const Routine = ({ routine }) => {
 
   const editHandler = (event) => {
     setIsEdited(true);
+  };
+
+  const filterActivities = () => {
+    let filtered = activities;
+    routine.activities.forEach((activity) => {
+      filtered = filtered.filter((act) => act.id !== activity.activityId);
+    });
+    return filtered;
   };
 
   return (
@@ -79,7 +87,7 @@ const Routine = ({ routine }) => {
                 className={classes.editRoutineButton}
                 onClick={editHandler}
               >
-                <i class="fas fa-edit"></i>
+                <i className="fas fa-edit"></i>
               </button>
             )}
             {/* edit routine activity form */}
@@ -96,26 +104,30 @@ const Routine = ({ routine }) => {
 
         <table>
           {/* label row */}
-          <tr className={classes.labelTR}>
-            <td className={classes.deleteTD}></td>
-            <td className={classes.nameTD}>Activity</td>
-            <td className={classes.descriptionTD}>Description</td>
-            <td className={classes.countTD}>Count</td>
-            <td className={classes.durationTD}>Duration</td>
-            <td className={classes.editButtonsTD}></td>
-          </tr>
+          <thead>
+            <tr className={classes.labelTR}>
+              <td className={classes.deleteTD}></td>
+              <td className={classes.nameTD}>Activity</td>
+              <td className={classes.descriptionTD}>Description</td>
+              <td className={classes.countTD}>Count</td>
+              <td className={classes.durationTD}>Duration</td>
+              <td className={classes.editButtonsTD}></td>
+            </tr>
+          </thead>
 
           {/* routine activities rows */}
-          {routine.activities.map((activity) => {
-            return (
-              <RoutineActivity
-                key={activity.id}
-                activity={activity}
-                routineId={routine.id}
-                creatorId={routine.creatorId}
-              />
-            );
-          })}
+          <tbody>
+            {routine.activities.map((activity) => {
+              return (
+                <RoutineActivity
+                  key={activity.id}
+                  activity={activity}
+                  routineId={routine.id}
+                  creatorId={routine.creatorId}
+                />
+              );
+            })}
+          </tbody>
         </table>
 
         {/* add activity row */}
@@ -133,7 +145,7 @@ const Routine = ({ routine }) => {
               className={classes.addActivityButton}
               onClick={addActivityHandler}
             >
-              <i class="fas fa-plus-circle"></i> Add Activity
+              <i className="fas fa-plus-circle"></i> Add Activity
             </button>
           )}
         </div>
@@ -143,6 +155,7 @@ const Routine = ({ routine }) => {
           <AddRoutineActivity
             routineId={routine.id}
             closeFormHandler={setIsAddActivity}
+            activities={filterActivities()}
           />
         )}
 

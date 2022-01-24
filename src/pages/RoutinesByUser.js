@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const RoutinesByUser = (props) => {
   return (
     <section className={classes.routinespage}>
       <h1>Routines by "{username}"</h1>
-      <ul>
+      <ul className={classes.main}>
         {userRoutines.map((routine) => {
           return <RoutinePublic key={routine.id} routine={routine} />;
         })}

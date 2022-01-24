@@ -6,6 +6,7 @@ import Activity from "../components/Activity";
 import { createActivityAct, getActivitiesAct } from "../store/dataActions";
 
 import classes from "./Activities.module.css";
+import { uiActions } from "../store/uiSlice";
 
 const Activities = (props) => {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ const Activities = (props) => {
   const [descriptionInput, setDescriptionInput] = useState("");
 
   useEffect(() => {
+    dispatch(uiActions.setLoader(true));
     dispatch(getActivitiesAct());
+    dispatch(uiActions.setLoader(false));
   }, [dispatch]);
 
   const openFormToggle = (event) => {
@@ -88,7 +91,7 @@ const Activities = (props) => {
             </form>
           ) : (
             <button className={classes.openFormButton} onClick={openFormToggle}>
-              <i class="fas fa-plus-circle"></i> New Activity
+              <i className="fas fa-plus-circle"></i> New Activity
             </button>
           ))}
         <ul>

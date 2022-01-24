@@ -24,24 +24,28 @@ const Routine = ({ routine }) => {
 
         <table className={classes.table}>
           {/* label row */}
-          <tr className={classes.labelTR}>
-            <td className={classes.nameTD}>Activity</td>
-            <td className={classes.descriptionTD}>Description</td>
-            <td className={classes.countTD}>Count</td>
-            <td className={classes.durationTD}>Duration</td>
-          </tr>
+          <thead>
+            <tr className={classes.labelTR}>
+              <td className={classes.nameTD}>Activity</td>
+              <td className={classes.descriptionTD}>Description</td>
+              <td className={classes.countTD}>Count</td>
+              <td className={classes.durationTD}>Duration</td>
+            </tr>
+          </thead>
 
           {/* routine activities rows */}
-          {routine.activities.map((activity) => {
-            return (
-              <RoutineActivityPublic
-                key={activity.id}
-                activity={activity}
-                routineId={routine.id}
-                creatorId={routine.creatorId}
-              />
-            );
-          })}
+          <tbody>
+            {routine.activities.map((activity) => {
+              return (
+                <RoutineActivityPublic
+                  key={activity.id}
+                  activity={activity}
+                  routineId={routine.id}
+                  creatorId={routine.creatorId}
+                />
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>

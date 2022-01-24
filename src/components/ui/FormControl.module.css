@@ -1,12 +1,13 @@
 .container {
   width: 100%;
   position: relative;
+  margin-bottom: 1.75rem;
 }
 
 .container label {
   position: absolute;
   left: 0.8rem;
-  top: 38%;
+  top: 50%;
   transform: translateY(-50%);
   background-color: #fff;
   transition: all 0.1s ease-in-out;
@@ -19,6 +20,7 @@
   background-color: transparent;
   padding: 0.5rem;
   border-radius: 4px;
+  width: 100%;
 }
 
 .label.focused {

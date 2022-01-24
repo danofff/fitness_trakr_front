@@ -20,7 +20,7 @@ const RoutinesByUser = (props) => {
   useEffect(() => {
     if (activityRoutines.length > 0) {
       const activity = activityRoutines[0].activities.find((activity) => {
-        return activity.activityId == activityId;
+        return activity.activityId === Number.parseInt(activityId);
       });
       // console.log(activity, activityId, activityRoutines[0]);
       if (activity) {
@@ -32,7 +32,7 @@ const RoutinesByUser = (props) => {
   return (
     <section className={classes.routinespage}>
       <h1>Routines featuring "{activityName}"</h1>
-      <ul>
+      <ul className={classes.main}>
         {activityRoutines.map((routine) => {
           return <RoutinePublic key={routine.id} routine={routine} />;
         })}

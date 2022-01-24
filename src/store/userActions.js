@@ -6,6 +6,7 @@ import { uiActions } from "./uiSlice";
 export const loginUserAct = (username, password) => {
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       console.log("user actions working");
       const user = await loginUser({ username, password });
       dispatch(userActions.loginUser(user));
@@ -20,6 +21,8 @@ export const loginUserAct = (username, password) => {
         })
       );
       return false;
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -27,7 +30,8 @@ export const loginUserAct = (username, password) => {
 export const registerUserAct = (username, password) => {
   return async (dispatch) => {
     try {
-      const user = await registerUser({ username, password });
+      dispatch(uiActions.setLoader(true));
+      await registerUser({ username, password });
       return true;
     } catch (error) {
       console.log(error);
@@ -39,6 +43,8 @@ export const registerUserAct = (username, password) => {
         })
       );
       return false;
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };

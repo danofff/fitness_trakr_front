@@ -26,7 +26,6 @@ const EditRoutineForm = ({ routine, onClose }) => {
 
   const onEditSubmit = (event) => {
     event.preventDefault();
-    console.log("edit is working");
     dispatch(
       editRoutineAct(user.token, routine.id, nameInput, goalInput, isPublic)
     );

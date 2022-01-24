@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 
 import Container from "./ui/Container";
 import { userActions } from "../store/userSlice";
@@ -18,16 +18,13 @@ const Header = () => {
     <header>
       <Container>
         <div className={classes.header}>
-          <NavLink to="/routines">
+          <Link to="/routines">
             <h1 className={classes.title}>
-              <i class="fas fa-heartbeat"></i> FitnessTrac.kr
+              <i className="fas fa-heartbeat"></i> FitnessTrac.kr
             </h1>
-          </NavLink>
+          </Link>
 
           <nav className={classes.navigation}>
-            <NavLink to="/routines" className={classes.plainLink}>
-              Home
-            </NavLink>
             <NavLink to="/routines" className={classes.plainLink}>
               Routines
             </NavLink>
@@ -41,9 +38,9 @@ const Header = () => {
             )}
 
             {!user && (
-              <NavLink to="/auth">
+              <Link to="/auth">
                 <button className={classes.loginButton}>Login/Register</button>
-              </NavLink>
+              </Link>
             )}
             {user && (
               <button className={classes.logoutButton} onClick={logOutHandler}>

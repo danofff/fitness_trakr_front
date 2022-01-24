@@ -21,6 +21,7 @@ export const getPublicRoutinesAct = () => {
   console.log("get public routines action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const routines = await fetchPublicRoutines();
       dispatch(dataActions.getRoutines(routines));
     } catch (error) {
@@ -31,6 +32,8 @@ export const getPublicRoutinesAct = () => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -39,6 +42,7 @@ export const getMyRoutinesAct = (token) => {
   console.log("get my routines action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const routines = await fetchMyRoutines(token);
       dispatch(dataActions.getMyRoutines(routines));
     } catch (error) {
@@ -50,6 +54,8 @@ export const getMyRoutinesAct = (token) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -58,6 +64,7 @@ export const getUserRoutinesAct = (username) => {
   console.log("get user routines action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const userRoutines = await fetchRoutinesByUsername(username);
       dispatch(dataActions.getUserRoutines(userRoutines));
     } catch (error) {
@@ -69,6 +76,8 @@ export const getUserRoutinesAct = (username) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -77,6 +86,7 @@ export const getActivityRoutineAct = (activityId) => {
   console.log("get routines by activity is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const activityRoutines = await fetchRoutinesByActivity(activityId);
       dispatch(dataActions.getActivityRoutines(activityRoutines));
     } catch (error) {
@@ -88,6 +98,8 @@ export const getActivityRoutineAct = (activityId) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -96,6 +108,7 @@ export const createRoutineAct = (token, creatorName, isPublic, name, goal) => {
   console.log("create routine action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const createdRoutine = await createRoutine(token, isPublic, name, goal);
       createdRoutine.activities = [];
       createdRoutine.creatorName = creatorName;
@@ -109,6 +122,8 @@ export const createRoutineAct = (token, creatorName, isPublic, name, goal) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -117,6 +132,7 @@ export const editRoutineAct = (token, routineId, name, goal, isPublic) => {
   console.log("edit routine action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const editedRoutine = await editRoutine(
         token,
         routineId,
@@ -134,6 +150,8 @@ export const editRoutineAct = (token, routineId, name, goal, isPublic) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -142,6 +160,7 @@ export const deleteRoutineAct = (token, id) => {
   console.log("delete routine action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       await deleteRoutine(token, id);
       dispatch(dataActions.deleteRoutine(id));
     } catch (error) {
@@ -153,6 +172,8 @@ export const deleteRoutineAct = (token, id) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -162,6 +183,7 @@ export const getActivitiesAct = () => {
   console.log("get all activities action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const activities = await fetchActivities();
       dispatch(dataActions.getActivities(activities));
     } catch (error) {
@@ -173,6 +195,8 @@ export const getActivitiesAct = () => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -181,6 +205,7 @@ export const createActivityAct = (token, name, description) => {
   console.log("crate activity action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const activity = await createActivity(token, name, description);
       dispatch(dataActions.addActivity(activity));
     } catch (error) {
@@ -195,6 +220,8 @@ export const createActivityAct = (token, name, description) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -203,6 +230,7 @@ export const editActivityAct = (token, id, name, description) => {
   console.log("edit activity action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const editedActivity = await editActivity(token, id, name, description);
       dispatch(dataActions.editActivity(editedActivity));
     } catch (error) {
@@ -214,6 +242,8 @@ export const editActivityAct = (token, id, name, description) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -229,6 +259,7 @@ export const addRoutineActivityAct = (
   console.log("add routine activity action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const routineActivity = await createRoutineActivity(
         token,
         routineId,
@@ -251,6 +282,8 @@ export const addRoutineActivityAct = (
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -259,6 +292,7 @@ export const editRoutineActivityAct = (token, id, count, duration) => {
   console.log("edit routine activity is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       const editedRoutineActivity = await editRoutineActivity(
         token,
         id,
@@ -275,6 +309,8 @@ export const editRoutineActivityAct = (token, id, count, duration) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };
@@ -283,6 +319,7 @@ export const deleteRoutineActivityAct = (token, id, routineId) => {
   console.log("delete activity action is working");
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoader(true));
       await deleteRoutineActivity(token, id);
       dispatch(dataActions.deleteRoutineActivity({ id, routineId }));
     } catch (error) {
@@ -294,6 +331,8 @@ export const deleteRoutineActivityAct = (token, id, routineId) => {
           type: "error",
         })
       );
+    } finally {
+      dispatch(uiActions.setLoader(false));
     }
   };
 };

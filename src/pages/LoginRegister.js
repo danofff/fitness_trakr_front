@@ -7,6 +7,7 @@ import FormControl from "../components/ui/FormControl";
 import StyledCheckbox from "../components/ui/StyledCheckbox";
 
 import classes from "./LoginRegister.module.css";
+import { uiActions } from "../store/uiSlice";
 
 const LoginRegister = (props) => {
   const dispatch = useDispatch();
@@ -49,9 +50,8 @@ const LoginRegister = (props) => {
           navigate("/myroutines", { replace: true });
         }
       } catch (error) {
-        //handle unsuccessfull request
-        //...
         console.log(error.message);
+      } finally {
         setUserNameInput("");
         setPasswordInput("");
       }
@@ -61,14 +61,19 @@ const LoginRegister = (props) => {
         const isSuccess = await dispatch(
           registerUserAct(userNameInput, passwordInput)
         );
-        console.log("success");
         if (isSuccess) {
           setMode("Log In");
+          dispatch(
+            uiActions.setSnackbar({
+              type: "success",
+              text: "You successfully registered, try to log in",
+              isSnackbarOpen: true,
+            })
+          );
         }
       } catch (error) {
-        //handle unsuccessfull request
-        //...
         console.log(error.message);
+      } finally {
         setUserNameInput("");
         setPasswordInput("");
       }

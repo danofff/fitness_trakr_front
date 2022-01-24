@@ -1,6 +1,8 @@
 .loginRegister {
   display: flex;
   justify-content: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .loginPanel,
@@ -18,7 +20,6 @@
 .registerPanel h3 {
   color: white;
   font-size: 3rem;
-  margin: 1rem;
 }
 
 .loginPanel p,
@@ -49,17 +50,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 25vw;
+  flex-grow: 1;
   background-color: white;
   height: 70vh;
 }
 
-.form * {
-  margin-top: 1rem;
-}
-
 .form h1 {
   font-size: 3rem;
+  margin-bottom: 2rem;
 }
 
 .inputContainer {
@@ -67,6 +65,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 60%;
 }
 
 .submitButton {

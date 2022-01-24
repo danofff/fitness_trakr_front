@@ -11,6 +11,7 @@ import {
 import StyledCheckbox from "../components/ui/StyledCheckbox";
 
 import classes from "./Routines.module.css";
+import { uiActions } from "../store/uiSlice";
 
 const MyRoutines = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -60,6 +61,7 @@ const MyRoutines = (props) => {
     event.preventDefault();
     //UI if success clean inputs and close form,
     //if not leave form open clean form or not?
+    dispatch(uiActions.setLoader(true));
     dispatch(
       createRoutineAct(
         user.token,
@@ -74,6 +76,7 @@ const MyRoutines = (props) => {
     setGoalInput("");
     setIsPublic(false);
     setIsFormOpen(false);
+    dispatch(uiActions.setLoader(false));
   };
   // console.log(myRoutines);
   return (
@@ -82,49 +85,49 @@ const MyRoutines = (props) => {
       <div className={classes.main}>
         {isFormOpen && (
           <form className={classes.form} onSubmit={onFormSubmit}>
-            <h3>Create A New Routine</h3>
-            <div className={classes.formRight}>
-              <div className={classes.cancelButtonBox}>
-                <button
-                  className={classes.cancelButton}
-                  onClick={openFormToggle}
-                  type="button"
-                >
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+            <button
+              className={classes.cancelButton}
+              onClick={openFormToggle}
+              type="button"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+            <div className={classes.formContent}>
+              <h3>Create A New Routine</h3>
+              <div className={classes.formRight}>
+                <div className={classes.cancelButtonBox}></div>
 
-              <div className={classes.inputsBox}>
-                <FormControl
-                  type="text"
-                  value={nameInput}
-                  onInputChange={onNameInputChange}
-                  label="Name"
-                />
-                <FormControl
-                  type="text"
-                  value={goalInput}
-                  onInputChange={onGoalInputChange}
-                  label="Goal"
-                />
+                <div className={classes.inputsBox}>
+                  <FormControl
+                    type="text"
+                    value={nameInput}
+                    onInputChange={onNameInputChange}
+                    label="Name"
+                  />
+                  <FormControl
+                    type="text"
+                    value={goalInput}
+                    onInputChange={onGoalInputChange}
+                    label="Goal"
+                  />
 
-                <StyledCheckbox
-                  onChangeHandler={onSwitchChange}
-                  label={isPublic ? "Public Routine" : "Private Routine"}
-                  checked={isPublic}
-                />
-
-                <button className={classes.submitButton} type="submit">
-                  Create Routine
-                </button>
+                  <StyledCheckbox
+                    onChangeHandler={onSwitchChange}
+                    label={isPublic ? "Public Routine" : "Private Routine"}
+                    checked={isPublic}
+                  />
+                </div>
               </div>
             </div>
+            <button className={classes.submitButton} type="submit">
+              Create
+            </button>
           </form>
         )}
 
         {!isFormOpen && (
           <button className={classes.openFormButton} onClick={openFormToggle}>
-            <i class="fas fa-plus-circle"></i> New Routine
+            <i className="fas fa-plus-circle"></i> New Routine
           </button>
         )}
         <ul>

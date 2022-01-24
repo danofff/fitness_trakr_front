@@ -1,6 +1,7 @@
 .checkbox__control {
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 input[type="checkbox"] {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import LoginRegister from "./pages/LoginRegister";
@@ -15,6 +15,7 @@ import { userActions } from "./store/userSlice";
 import Snackbar from "./components/ui/Snackbar";
 import RoutinesByUser from "./pages/RoutinesByUser";
 import RoutinesByActivity from "./pages/RoutinesByActivity";
+import Loader from "./components/ui/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,9 +29,11 @@ function App() {
   return (
     <div className="App">
       <Snackbar />
+      <Loader />
       <Header />
       <Container className="main">
         <Routes>
+          <Route path="/" element={<Navigate replace to="/routines" />} />
           <Route path="/routines" element={<Routines />} />
           {user && <Route path="/myroutines" element={<MyRoutines />} />}
           <Route

@@ -5,14 +5,19 @@ const uiSlice = createSlice({
   initialState: {
     snackbar: {
       isSnackbarOpen: false,
-      type: "default",
+      type: "success",
       text: "some default text",
     },
+    loader: false,
   },
   reducers: {
     setSnackbar(state, action) {
-      console.log("setsnackbar is working");
+      console.log("set snackbar is working");
       state.snackbar = action.payload;
+    },
+    setLoader(state, action) {
+      console.log("set loader is working");
+      state.loader = action.payload;
     },
   },
 });

@@ -2,9 +2,11 @@
   display: none;
   color: white;
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  max-width: 75%;
   bottom: 1rem;
-  left: 35%;
-  width: 30vw;
   padding: 1rem;
   border-radius: 10px;
 }
@@ -29,5 +31,9 @@
 }
 
 .error {
-  background-color: rgb(255, 66, 66);
+  background-color: #ff4242;
+}
+
+.success {
+  background-color: #198753;
 }

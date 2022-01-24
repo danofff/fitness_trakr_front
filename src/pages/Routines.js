@@ -18,7 +18,7 @@ const Routines = (props) => {
   return (
     <section className={classes.routinespage}>
       <h1>Routines</h1>
-      <ul>
+      <ul className={classes.main}>
         {routines.map((routine) => {
           return <RoutinePublic key={routine.id} routine={routine} />;
         })}
