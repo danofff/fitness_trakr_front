@@ -36,7 +36,11 @@ const EditRoutineForm = ({ routine, onClose }) => {
     <div>
       <form className={classes.form}>
         <div className={classes.buttonBox}>
-          <button className={classes.cancelButton} onClick={onClose}>
+          <button
+            className={classes.cancelButton}
+            onClick={onClose}
+            type="button"
+          >
             Cancel
           </button>
           <button className={classes.submitButton} onClick={onEditSubmit}>

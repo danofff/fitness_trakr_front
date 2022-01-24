@@ -7,7 +7,6 @@ import EditRoutineForm from "./EditRoutineForm";
 import AddRoutineActivity from "./AddRoutineActivity";
 
 import Modal from "./ui/Modal";
-import { uiActions } from "../store/uiSlice";
 
 import classes from "./Routine.module.css";
 
@@ -32,7 +31,6 @@ const Routine = ({ routine }) => {
 
   const deleteHandler = (event) => {
     dispatch(deleteRoutineAct(user.token, routine.id));
-    dispatch(uiActions.setIsModalOpen(false));
   };
 
   const cancelHandler = (event) => {
@@ -101,34 +99,35 @@ const Routine = ({ routine }) => {
             )}
           </div>
         </div>
+        <div className={classes.tableContainer}>
+          <table>
+            {/* label row */}
+            <thead>
+              <tr className={classes.labelTR}>
+                <td className={classes.deleteTD}></td>
+                <td className={classes.nameTD}>Activity</td>
+                <td className={classes.descriptionTD}>Description</td>
+                <td className={classes.countTD}>Count</td>
+                <td className={classes.durationTD}>Duration</td>
+                <td className={classes.editButtonsTD}></td>
+              </tr>
+            </thead>
 
-        <table>
-          {/* label row */}
-          <thead>
-            <tr className={classes.labelTR}>
-              <td className={classes.deleteTD}></td>
-              <td className={classes.nameTD}>Activity</td>
-              <td className={classes.descriptionTD}>Description</td>
-              <td className={classes.countTD}>Count</td>
-              <td className={classes.durationTD}>Duration</td>
-              <td className={classes.editButtonsTD}></td>
-            </tr>
-          </thead>
-
-          {/* routine activities rows */}
-          <tbody>
-            {routine.activities.map((activity) => {
-              return (
-                <RoutineActivity
-                  key={activity.id}
-                  activity={activity}
-                  routineId={routine.id}
-                  creatorId={routine.creatorId}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+            {/* routine activities rows */}
+            <tbody>
+              {routine.activities.map((activity) => {
+                return (
+                  <RoutineActivity
+                    key={activity.id}
+                    activity={activity}
+                    routineId={routine.id}
+                    creatorId={routine.creatorId}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
         {/* add activity row */}
         <div>

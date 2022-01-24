@@ -21,32 +21,33 @@ const Routine = ({ routine }) => {
           <span className={classes.goalLabel}>Goal: </span>
           {routine.goal}
         </p>
+        <div className={classes.tableContainer}>
+          <table className={classes.table}>
+            {/* label row */}
+            <thead>
+              <tr className={classes.labelTR}>
+                <td className={classes.nameTD}>Activity</td>
+                <td className={classes.descriptionTD}>Description</td>
+                <td className={classes.countTD}>Count</td>
+                <td className={classes.durationTD}>Duration</td>
+              </tr>
+            </thead>
 
-        <table className={classes.table}>
-          {/* label row */}
-          <thead>
-            <tr className={classes.labelTR}>
-              <td className={classes.nameTD}>Activity</td>
-              <td className={classes.descriptionTD}>Description</td>
-              <td className={classes.countTD}>Count</td>
-              <td className={classes.durationTD}>Duration</td>
-            </tr>
-          </thead>
-
-          {/* routine activities rows */}
-          <tbody>
-            {routine.activities.map((activity) => {
-              return (
-                <RoutineActivityPublic
-                  key={activity.id}
-                  activity={activity}
-                  routineId={routine.id}
-                  creatorId={routine.creatorId}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+            {/* routine activities rows */}
+            <tbody>
+              {routine.activities.map((activity) => {
+                return (
+                  <RoutineActivityPublic
+                    key={activity.id}
+                    activity={activity}
+                    routineId={routine.id}
+                    creatorId={routine.creatorId}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

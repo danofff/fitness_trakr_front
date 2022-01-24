@@ -66,7 +66,7 @@ const Activities = (props) => {
                     onClick={openFormToggle}
                     type="button"
                   >
-                    <i class="fas fa-times"></i>
+                    <i className="fas fa-times"></i>
                   </button>
                 </div>
                 <div className={classes.inputsBox}>

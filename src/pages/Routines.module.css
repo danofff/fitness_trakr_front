@@ -72,10 +72,12 @@
 .formContent {
   align-self: stretch;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .formContent h3 {
+  flex-basis: 120px;
   align-self: stretch;
   display: flex;
   align-items: center;
@@ -109,7 +111,6 @@
 .inputsBox {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 }
 
 /* .inputsBox * {

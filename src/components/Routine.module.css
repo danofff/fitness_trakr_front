@@ -10,9 +10,16 @@
   padding-left: 1rem;
 }
 
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .goal,
 .table {
   margin: 1rem 0;
+  min-width: 510px;
+  width: 100%;
 }
 
 .routineTop {
